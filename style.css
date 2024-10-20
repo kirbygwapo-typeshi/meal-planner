@@ -11,15 +11,17 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   color: #fff;
+  padding: 20px; 
 }
 
 header {
   text-align: center;
   padding: 20px;
-  background-color: #4B0082;
+  background-color: rgba(75, 0, 130, 0.8); 
   color: #fff;
   text-shadow: 0px 0px 10px #9400D3;
   font-size: 36px;
+  border-radius: 8px; 
 }
 
 h1 {
@@ -32,15 +34,17 @@ h1 {
   display: flex;
   justify-content: center;
   margin: 30px 0;
+  padding: 10px;
+  background-color: rgba(26, 26, 26, 0.8); 
+  border-radius: 10px; 
 }
 
 form {
-  background-color: #1a1a1a;
+  background-color: rgba(26, 26, 26, 0.9); 
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(147, 112, 219, 0.6);
   border: 2px solid #9400D3;
-  font-family: 'Minecraft', 'Cuboid', sans-serif;
 }
 
 form label {
@@ -64,4 +68,34 @@ form button {
   color: white;
   border: 2px solid #4B0082;
   cursor: pointer;
+}
+
+.meal-item {
+  background-color: rgba(26, 26, 26, 0.9);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(147, 112, 219, 0.6);
+  border: 2px solid #9400D3;
+}
+
+.meal-item img {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+@media only screen and (max-width: 600px) {
+  header {
+    font-size: 24px;
+  }
+  
+  h1 {
+    font-size: 28px;
+  }
+  
+  form select, form button {
+    font-size: 14px;
+  }
 }
