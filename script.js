@@ -137,14 +137,14 @@ const mealPlans = {
 };
 
 document.getElementById('mealPlanForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission to server
+    event.preventDefault(); 
     const goal = document.getElementById('goal').value;
     const weightRange = document.getElementById('weightRange').value; 
 
     const suggestions = mealPlans[weightRange] && mealPlans[weightRange][goal] ? mealPlans[weightRange][goal] : [];
     const mealSuggestionsDiv = document.getElementById('mealSuggestions');
     
-    mealSuggestionsDiv.innerHTML = ''; // Clear previous suggestions
+    mealSuggestionsDiv.innerHTML = ''; 
 
     if (suggestions.length === 0) {
         mealSuggestionsDiv.innerHTML = '<p>No meal plans available for this combination.</p>';
