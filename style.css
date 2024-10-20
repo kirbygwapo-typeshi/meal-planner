@@ -42,7 +42,7 @@ body {
   background-size: cover; 
   background-position: center;
   background-repeat: no-repeat;
-  color: #fff;
+  color: #000000;
   padding: 20px; 
 }
 
@@ -50,7 +50,7 @@ header {
   text-align: center;
   padding: 20px;
   background-color: rgba(75, 0, 130, 0.8); 
-  color: #fff;
+  color: #000000;
   text-shadow: 0px 0px 10px #9400D3;
   font-size: 36px;
   border-radius: 8px; 
