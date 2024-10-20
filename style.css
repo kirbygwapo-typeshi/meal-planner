@@ -2,10 +2,14 @@
 @import url('https://kirbygwapo-typeshi.github.io/meal-planner/');
 
 body {
-  font-family: 'Minecraft', 'Cuboid', sans-serif; 
+  font-family: 'Minecraft', 'Cuboid', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #0d0d0d;
+  background-image: url('zp.webp'); 
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
   color: #fff;
 }
 
@@ -59,4 +63,5 @@ form button {
   background-color: #9400D3;
   color: white;
   border: 2px solid #4B0082;
-  cursor: pointer
+  cursor: pointer;
+}
