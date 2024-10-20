@@ -1,7 +1,7 @@
 const mealPlans = {
     "20-25kg": {
         bulk: [
-            { name: "Chicken & Quinoa Bowl", img: "chicken-quinoa.jpg", calories: ""400"" },
+            { name: "Chicken & Quinoa Bowl", img: "chicken-quinoa.jpg", calories: "400" },
             { name: "Oatmeal with Almonds", img: "oatmeal.jpg", calories: "350" },
             { name: "Turkey Sandwich", img: "turkey-sandwich.jpg", calories: "450" }
         ],
