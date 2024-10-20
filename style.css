@@ -90,7 +90,7 @@ form select {
   font-size: 16px;
   margin-right: 10px;
   background-color: #0d0d0d;
-  color: #fff;
+  color: #000000;
   border: 2px solid #9400D3;
   border-radius: 5px;
 }
@@ -98,7 +98,7 @@ form select {
 form button {
   padding: 5px 10px;
   background-color: #9400D3;
-  color: white;
+  color: #000000;
   border: 2px solid #4B0082;
   cursor: pointer;
   border-radius: 5px;
