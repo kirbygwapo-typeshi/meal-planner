@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zephyr Planner </title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <h1 class="cube-text">Zephyr Planner</h1>
-    
-    <form id="mealPlanForm">
-        <label for="weightRange">Select Weight Range:</label>
-        <select id="weightRange">
-            <option value="20-25kg">20-25 kg</option>
-            <option value="30-35kg">30-35 kg</option>
-            <option value="40-45kg">40-45 kg</option>
-            <option value="60-65kg">60-65 kg</option>
-            <option value="70-100kg+">70-100+ kg</option>
-        </select>
-
-        <label for="goal">Select Goal:</label>
-        <select id="goal">
-            <option value="bulk">Bulk</option>
-            <option value="diet">Diet</option>
-            <option value="lose_weight">Lose Weight</option>
-            <option value="gain_weight">Gain Weight</option>
-            <option value="maintain">Maintain Weight</option>
-        </select>
-
-        <button type="submit">Get Meal Suggestions</button>
-    </form>
-
-    <div id="mealSuggestions"></div>
-
-    <script src="script.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Zephyr Planner </title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="root">
+            <h1 class="cube-text">Zephyr Planner</h1>
+            <form id="mealPlanForm">
+                <div class="container">
+                    <div class="labels">
+                        <label for="weightRange">Select Weight Range:</label>
+                        <label for="goal">Select Goal:</label>
+                    </div>
+                    <div class="values">
+                        <select id="weightRange">
+                            <option value="20-25kg">20-25 kg</option>
+                            <option value="30-35kg">30-35 kg</option>
+                            <option value="40-45kg">40-45 kg</option>
+                            <option value="60-65kg">60-65 kg</option>
+                            <option value="70-100kg+">70-100+ kg</option>
+                        </select>
+                        <select id="goal">
+                            <option value="bulk">Bulk</option>
+                            <option value="diet">Diet</option>
+                            <option value="lose_weight">Lose Weight</option>
+                            <option value="gain_weight">Gain Weight</option>
+                            <option value="maintain">Maintain Weight</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="buttonContainer">
+                    <button type="submit">Get Meal Suggestions</button>
+                </div>
+            </form>
+        </div>
+    </body>
 </html>
