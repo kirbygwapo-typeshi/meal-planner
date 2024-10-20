@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Personalized Meal Planner</h1>
+        <p>Select your fitness goal and get meal suggestions tailored to you.</p>
+    </header>
+
+    <section class="meal-plan-form">
+        <form id="mealPlanForm">
+            <label for="goal">Select Your Goal:</label>
+            <select id="goal" name="goal">
+                <option value="bulk">Bulk</option>
+                <option value="diet">Diet</option>
+                <option value="lose_weight">Lose Weight</option>
+                <option value="gain_weight">Gain Weight</option>
+                <option value="maintain">Maintain</option>
+            </select>
+
+            <label for="weight">Enter Your Weight (kg):</label>
+            <input type="number" id="weight" name="weight" placeholder="Your weight in kg">
+
+            <button type="submit">Get Meal Plan</button>
+        </form>
+    </section>
+
+    <section class="meal-suggestions">
+        <h2>Meal Suggestions:</h2>
+        <div id="mealSuggestions"></div>
+    </section>
+
+    <footer>
+        <p>© Zephyr 2024</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
