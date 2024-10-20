@@ -137,18 +137,28 @@ const mealPlans = {
 };
 
 document.getElementById('mealPlanForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent form submission to server
     const goal = document.getElementById('goal').value;
     const weightRange = document.getElementById('weightRange').value; 
-    const suggestions = mealPlans[weightRange][goal] || [];
+
+    const suggestions = mealPlans[weightRange] && mealPlans[weightRange][goal] ? mealPlans[weightRange][goal] : [];
     const mealSuggestionsDiv = document.getElementById('mealSuggestions');
     
-    mealSuggestionsDiv.innerHTML = '';
+    mealSuggestionsDiv.innerHTML = ''; // Clear previous suggestions
+
+    if (suggestions.length === 0) {
+        mealSuggestionsDiv.innerHTML = '<p>No meal plans available for this combination.</p>';
+        return;
+    }
 
     suggestions.forEach(meal => {
         const mealItem = document.createElement('div');
-        mealItem.innerHTML = `<img src="${meal.img}" alt="${meal.name}">
-                              <p>${meal.name} - <strong>${meal.calories} calories</strong></p>`;
+        mealItem.innerHTML = `
+            <div>
+                <img src="${meal.img}" alt="${meal.name}" style="width: 100px; height: 100px;">
+                <p>${meal.name} - <strong>${meal.calories} calories</strong></p>
+            </div>
+        `;
         mealSuggestionsDiv.appendChild(mealItem);
     });
 });
