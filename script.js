@@ -50,7 +50,6 @@ function displayMealSuggestions(meals) {
             <img src="${meal.image}" alt="${meal.title}" class="meal-image">
             <div class="meal-info">
                 <h3>${meal.title}</h3>
-                <p>Calories: ${meal.calories || 'N/A'}</p>
             </div>
         `;
         mealSuggestionsDiv.appendChild(mealItem);
