@@ -8,9 +8,10 @@
 </head>
 <body>
     <div class="root">
-        <h1 class="cube-text">Login</h1>
+        <h1 class="cube-text">Zephyr Planner</h1>
 
         <form id="loginForm">
+            <h2>Login</h2>
             <div class="container">
                 <div class="labels">
                     <label for="username">Username:</label>
@@ -26,11 +27,12 @@
             </div>
         </form>
     </div>
+
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Here you would typically validate the login credentials
-            // For this example, we'll just redirect to the meal planner
+            event.preventDefault(); 
+            // Here you would typically validate the login
+            // For now, we'll just redirect to the meal planner
             window.location.href = 'meal-planner.html';
         });
     </script>
