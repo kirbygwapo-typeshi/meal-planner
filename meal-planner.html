@@ -10,6 +10,10 @@
     <div class="root">
         <h1 class="cube-text">Meal Planner</h1>
 
+        <div class="buttonContainer">
+            <button onclick="logout()" class="logout-button">Logout</button>
+        </div>
+
         <form id="mealPlanForm">
             <div class="container">
                 <div class="labels">
@@ -38,8 +42,16 @@
             </div>
         </form>
 
-        <div id="mealSuggestions"></div>
+        <div id="mealSuggestions" class="meal-suggestions"></div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // ... (previous JavaScript code remains the same) ...
+
+        function logout() {
+            // Here you would typically clear any session data
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html>
