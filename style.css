@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #0d0d0d;
-    background-image: url('zp.webp'); 
+    background-image: url('image0_0.jpg'); 
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
@@ -57,7 +57,8 @@ h1 {
     font-weight: bold;
 }
 
-.values select {
+.values select,
+.values input[type="number"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #9400D3;
@@ -127,6 +128,22 @@ button:hover {
 .meal-info p {
     margin: 0;
     color: #cccccc;
+}
+
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 10px;
+}
+
+.pagination span {
+    margin: 0 10px;
 }
 
 /* Responsive Design */
