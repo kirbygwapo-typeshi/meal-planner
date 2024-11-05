@@ -10,7 +10,7 @@ body {
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    color: #ffffff;
+    color: #000000; /* Changed to black */
     padding: 20px;
     min-height: 100vh;
     display: flex;
@@ -29,13 +29,13 @@ h1 {
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 30px;
-    color: #9400D3;
+    color: #000000; /* Changed to black */
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 /* Form Styling */
 #mealPlanForm {
-    background-color: rgba(26, 26, 26, 0.9);
+    background-color: rgba(255, 255, 255, 0.9); /* Changed for better contrast */
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(147, 112, 219, 0.6);
@@ -53,17 +53,16 @@ h1 {
 .labels label {
     display: block;
     margin-bottom: 5px;
-    color: #9400D3;
+    color: #000000; /* Changed to black */
     font-weight: bold;
 }
 
-.values select,
-.values input[type="number"] {
+.values select {
     width: 100%;
     padding: 10px;
     border: 1px solid #9400D3;
-    background-color: #1a1a1a;
-    color: #ffffff;
+    background-color: #ffffff; /* Changed for better contrast */
+    color: #000000; /* Changed to black */
     border-radius: 5px;
     font-size: 16px;
 }
@@ -86,7 +85,7 @@ button {
 
 button:hover {
     background-color: #7b00b3;
-    transform: scale(1.05); /* Slightly enlarge the button */
+    transform: scale(1.05);
 }
 
 /* Meal Suggestions Styling */
@@ -98,7 +97,7 @@ button:hover {
 }
 
 .meal-item {
-    background-color: rgba(26, 26, 26, 0.8);
+    background-color: rgba(255, 255, 255, 0.8); /* Changed for better contrast */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -106,8 +105,8 @@ button:hover {
 }
 
 .meal-item:hover {
-    transform: translateY(-5px); /* Lift the card */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3); /* Add a deeper shadow */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
 }
 
 .meal-image {
@@ -122,28 +121,12 @@ button:hover {
 
 .meal-info h3 {
     margin: 0 0 10px 0;
-    color: #9400D3;
+    color: #000000; /* Changed to black */
 }
 
 .meal-info p {
     margin: 0;
-    color: #cccccc;
-}
-
-/* Pagination Styling */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.pagination button {
-    margin: 0 10px;
-}
-
-.pagination span {
-    margin: 0 10px;
+    color: #000000; /* Changed to black */
 }
 
 /* Responsive Design */
