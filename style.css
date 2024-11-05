@@ -1,7 +1,6 @@
 /* General Styling */
 @import url('https://kirbygwapo-typeshi.github.io/meal-planner/');
 
-
 .root {
   padding: 10px;
 }
@@ -10,23 +9,44 @@
   width: 50%;
   min-width: 480px;
   margin: auto;
-  .container {
-    display: flex;
-    width: 100%;
-    margin-bottom: 10px;
-    div {
-      width: 50%;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-    }
-    .labels label {
-      margin: 8px 5px
-    }
-    .values select {
-      margin: 3px 0;
-    }
-  }
+}
+
+#loginForm {
+  background-color: rgba(26, 26, 26, 0.9); 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(147, 112, 219, 0.6);
+  border: 2px solid #9400D3;
+  margin-bottom: 20px; /* Add some space below the login form */
+}
+
+#loginForm h2 {
+  text-align: center;
+  color: #9400D3;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.labels label {
+  margin: 8px 5px;
+}
+
+.values select {
+  margin: 3px 0;
+}
+
+.values input {
+  padding: 5px;
+  font-size: 16px;
+  margin-right: 10px;
+  background-color: #0d0d0d;
+  color: #000000;
+  border: 2px solid #9400D3;
+  border-radius: 5px;
 }
 
 .buttonContainer {
@@ -87,49 +107,4 @@ form label {
 
 form select {
   padding: 5px;
-  font-size: 16px;
-  margin-right: 10px;
-  background-color: #0d0d0d;
-  color: #000000;
-  border: 2px solid #9400D3;
-  border-radius: 5px;
-}
-
-form button {
-  padding: 5px 10px;
-  background-color: #9400D3;
-  color: #000000;
-  border: 2px solid #4B0082;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.meal-item {
-  background-color: rgba(26, 26, 26, 0.9);
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(147, 112, 219, 0.6);
-  border: 2px solid #9400D3;
-}
-
-.meal-item img {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-@media only screen and (max-width: 600px) {
-  header {
-    font-size: 24px;
-  }
-  
-  h1 {
-    font-size: 28px;
-  }
-  
-  form select, form button {
-    font-size: 14px;
-  }
-}
+  font-size:
