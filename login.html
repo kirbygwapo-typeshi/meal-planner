@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Zephyr Planner</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script> 
 </head>
 <body>
     <div class="root">
-        <h1 class="cube-text">Zephyr Planner</h1>
+        <h1 class="cube-text">Login</h1>
 
-        
-        <form id="loginForm" onsubmit="return handleLogin(event)">
+        <form id="loginForm">
             <h2>Login</h2>
             <div class="container">
                 <div class="labels">
@@ -29,14 +27,6 @@
             </div>
         </form>
     </div>
-
-    <script>
-        function handleLogin(event) {
-            event.preventDefault(); 
-
-            
-            window.location.href = 'index.html'; 
-        }
-    </script>
+    <script src="login.js"></script>
 </body>
 </html>
