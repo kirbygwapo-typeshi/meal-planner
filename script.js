@@ -1,4 +1,4 @@
-const API_KEY = '0683a72a008b4693bc84903ed6aad61a';     
+const API_KEY = '0683a72a008b4693bc84903ed6aad61a';
 
 document.getElementById('mealPlanForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
@@ -15,28 +15,19 @@ async function fetchMealSuggestions(weightRange, goal) {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        displayMealSuggestions(data.results);
+        const mealDetailsPromises = data.results.map(meal => fetchMealDetails(meal.id));
+        const mealDetails = await Promise.all(mealDetailsPromises);
+        displayMealSuggestions(mealDetails);
     } catch (error) {
         console.error('Error fetching meal suggestions:', error);
         document.getElementById('mealSuggestions').innerHTML = '<p>Error fetching meal suggestions. Please try again later.</p>';
     }
 }
 
-function getDietType(goal) {
-    switch (goal) {
-        case 'bulk':
-            return 'high-protein';
-        case 'diet':
-            return 'vegetarian';
-        case 'lose_weight':
-            return 'low-carb';
-        case 'gain_weight':
-            return 'high-calorie';
-        case 'maintain':
-            return 'balanced';
-        default:
-            return '';
-    }
+async function fetchMealDetails(mealId) {
+    const url = `https://api.spoonacular.com/recipes/${mealId}/information?apiKey=${API_KEY}`;
+    const response = await fetch(url);
+    return response.json();
 }
 
 function displayMealSuggestions(meals) {
