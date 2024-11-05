@@ -1,4 +1,10 @@
 const mealPlans = {
+};
+
+document.getElementById('mealPlanForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    const goal = document.getElementById('goal').value;
+   
     "20-25kg": {
         bulk: [
             { name: "Chicken & Quinoa Bowl", img: "chicken-quinoa.jpg", calories: 400 },
