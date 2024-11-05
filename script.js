@@ -1,4 +1,4 @@
-const API_KEY = '0683a72a008b4693bc84903ed6aad61a'; 
+const API_KEY = '0683a72a008b4693bc84903ed6aad61a';
 
 document.getElementById('mealPlanForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
@@ -30,26 +30,9 @@ async function fetchMealDetails(mealId) {
     return response.json();
 }
 
-function getDietType(goal) {
-    switch (goal) {
-        case 'bulk':
-            return 'high-protein';
-        case 'diet':
-            return 'vegetarian';
-        case 'lose_weight':
-            return 'low-carb';
-        case 'gain_weight':
-            return 'high-calorie';
-        case 'maintain':
-            return 'balanced';
-        default:
-            return '';
-    }
-}
-
 function displayMealSuggestions(meals) {
     const mealSuggestionsDiv = document.getElementById('mealSuggestions');
-    mealSuggestionsDiv.innerHTML = ''; 
+    mealSuggestionsDiv.innerHTML = ''; // Clear previous suggestions
 
     meals.forEach(meal => {
         const mealItem = document.createElement('div');
@@ -58,7 +41,6 @@ function displayMealSuggestions(meals) {
             <img src="${meal.image}" alt="${meal.title}" class="meal-image">
             <div class="meal-info">
                 <h3>${meal.title}</h3>
-                <p>Calories: ${meal.nutrition.nutrients.find(nutrient => nutrient.name === 'Calories').amount} kcal</p>
             </div>
         `;
         mealSuggestionsDiv.appendChild(mealItem);
