@@ -10,25 +10,14 @@
     <div class="root">
         <h1 class="cube-text">Meal Planner</h1>
 
-        <div class="buttonContainer">
-            <button onclick="logout()" class="logout-button">Logout</button>
-        </div>
-
         <form id="mealPlanForm">
             <div class="container">
                 <div class="labels">
-                    <label for="weightRange">Select Weight Range:</label>
-                    <label for="goal">Select Goal:</label>
+                    <label for="goal">Select Your Goal:</label>
                 </div>
                 <div class="values">
-                    <select id="weightRange">
-                        <option value="20-25kg">20-25 kg</option>
-                        <option value="30-35kg">30-35 kg</option>
-                        <option value="40-45kg">40-45 kg</option>
-                        <option value="60-65kg">60-65 kg</option>
-                        <option value="70-100kg+">70-100+ kg</option>
-                    </select>
-                    <select id="goal">
+                    <select id="goal" required>
+                        <option value="">--Select Goal--</option>
                         <option value="bulk">Bulk</option>
                         <option value="diet">Diet</option>
                         <option value="lose_weight">Lose Weight</option>
@@ -37,20 +26,31 @@
                     </select>
                 </div>
             </div>
+
+            <div class="container">
+                <div class="labels">
+                    <label for="weightRange">Select Weight Range:</label>
+                </div>
+                <div class="values">
+                    <select id="weightRange" required>
+                        <option value="">--Select Weight Range--</option>
+                        <option value="under_150">Under 150 lbs</option>
+                        <option value="150_200">150 - 200 lbs</option>
+                        <option value="over_200">Over 200 lbs</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="buttonContainer">
                 <button type="submit">Get Meal Suggestions</button>
             </div>
         </form>
 
-        <div id="mealSuggestions" class="meal-suggestions"></div>
+        <div id="mealSuggestions">
+            <!-- Meal suggestions will be displayed here -->
+        </div>
     </div>
 
-    <script>
-        
-        function logout() {
-            
-            window.location.href = 'index.html';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
