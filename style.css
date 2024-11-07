@@ -168,3 +168,116 @@ button:hover {
   top: 20px;
   right: 20px;
 }
+
+/* Add these new styles to your existing style.css */
+
+.section-title {
+    text-align: center;
+    margin: 40px 0 20px 0;
+}
+
+.section-title h2 {
+    color: #000000;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Workout Styles */
+#workoutSuggestions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.workout-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(147, 112, 219, 0.6);
+    border: 2px solid #9400D3;
+    transition: transform 0.3s ease;
+}
+
+.workout-card:hover {
+    transform: translateY(-5px);
+}
+
+.workout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #9400D3;
+    padding-bottom: 10px;
+}
+
+.workout-header h3 {
+    margin: 0;
+    color: #000000;
+}
+
+.difficulty-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.beginner {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.intermediate {
+    background-color: #FFC107;
+    color: black;
+}
+
+.advanced {
+    background-color: #f44336;
+    color: white;
+}
+
+.workout-details {
+    color: #000000;
+}
+
+.workout-details p {
+    margin: 10px 0;
+}
+
+.exercises {
+    margin-top: 15px;
+}
+
+.exercises h4 {
+    margin: 0 0 10px 0;
+    color: #9400D3;
+}
+
+.exercises ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.exercises li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(148, 0, 211, 0.2);
+}
+
+.exercise-name {
+    font-weight: bold;
+}
+
+.exercise-details {
+    color: #666;
+}
+
+@media (max-width: 600px) {
+    #workoutSuggestions {
+        grid-template-columns: 1fr;
+    }
+}
