@@ -99,7 +99,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled steak, sweet potato, broccoli",
                     "Evening: Casein protein shake"
                 ]
-            }
+            },
         },
         female: {
             bulk: {
