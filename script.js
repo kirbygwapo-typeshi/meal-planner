@@ -6,6 +6,10 @@ document.getElementById('mealPlanForm').addEventListener('submit', function(even
     const weightRange = document.getElementById('weightRange').value;
     const gender = document.getElementById('gender').value;
 
+    console.log("Goal:", goal);
+    console.log("Weight Range:", weightRange);
+    console.log("Gender:", gender);
+    
     fetchMealSuggestions(weightRange, goal, gender);
     displayWorkouts(goal, gender);
 });
@@ -16,10 +20,10 @@ function fetchMealSuggestions(weightRange, goal, gender) {
 }
 
 function getMealsByGoalAndGender(goal, weightRange, gender) {
-    const mealPlans = {
-        male: {
-            bulk: {
-                under_150: [
+    const mealPlans = 
+        male; {
+            bulk; {
+                under_150; [
                     "Breakfast: 3 whole eggs, 2 slices whole grain toast, 1 banana",
                     "Mid-morning: Protein shake with 2 scoops whey, 1 cup oats, 1 tbsp peanut butter",
                     "Lunch: 6 oz grilled chicken breast, 1 cup brown rice, 1 cup mixed vegetables",
@@ -27,7 +31,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: 8 oz lean beef steak, 1 large sweet potato, 2 cups broccoli",
                     "Evening: Casein protein shake, 1 tbsp almond butter"
                 ],
-                '150_200': [
+                '150_200'; [
                     "Breakfast: 4 whole eggs, 3 slices whole grain toast, 1 apple",
                     "Mid-morning: Mass gainer shake",
                     "Lunch: 8 oz grilled chicken breast, 1.5 cups brown rice, 1.5 cups mixed vegetables",
@@ -35,7 +39,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: 10 oz salmon fillet, 2 cups quinoa, 2 cups asparagus",
                     "Evening: 2 scoops casein protein, 2 tbsp peanut butter"
                 ],
-                over_200: [
+                over_200; [
                     "Breakfast: 5 whole eggs, 4 slices whole grain toast, 2 bananas",
                     "Mid-morning: Mass gainer shake with whole milk",
                     "Lunch: 10 oz grilled chicken breast, 2 cups brown rice, 2 cups mixed vegetables",
@@ -43,9 +47,9 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: 12 oz lean beef steak, 2 large sweet potatoes, 3 cups broccoli",
                     "Evening: Casein protein shake, 2 tbsp almond butter, 1 scoop oats"
                 ]
-            },
-            lose_weight: {
-                under_150: [
+            }
+            lose_weight; {
+                under_150; [
                     "Breakfast: 2 egg whites, 1 whole egg, whole grain toast, 1/2 avocado",
                     "Mid-morning: Apple with 1 tbsp almond butter",
                     "Lunch: Grilled chicken breast, mixed green salad, olive oil dressing",
@@ -53,7 +57,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Baked salmon, steamed broccoli, quinoa",
                     "Evening: Protein shake or cottage cheese"
                 ],
-                '150_200': [
+                '150_200'; [
                     "Breakfast: Protein smoothie (whey, banana, spinach, almond milk)",
                     "Mid-morning: Hard-boiled eggs",
                     "Lunch: Turkey and vegetable soup, side salad",
@@ -61,7 +65,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Lean beef stir-fry with mixed vegetables",
                     "Evening: Casein protein shake"
                 ],
-                over_200: [
+                over_200; [
                     "Breakfast: Egg white omelet with spinach and tomatoes, whole grain toast",
                     "Mid-morning: Protein bar",
                     "Lunch: Grilled chicken breast, large mixed green salad, light dressing",
@@ -69,9 +73,9 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled lean steak, roasted vegetables, sweet potato",
                     "Evening: Greek yogurt with almonds"
                 ]
-            },
-            maintain_weight: {
-                under_150: [
+            }
+            maintain_weight; {
+                under_150; [
                     "Breakfast: 3 eggs, whole grain toast, 1 apple",
                     "Mid-morning: Greek yogurt with berries",
                     "Lunch: Turkey sandwich on whole grain bread, carrot sticks",
@@ -79,7 +83,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled chicken breast, quinoa, steamed vegetables",
                     "Evening: Small handful of mixed nuts"
                 ],
-                '150_200': [
+                '150_200'; [
                     "Breakfast: Oatmeal with protein powder, banana, and almonds",
                     "Mid-morning: Cottage cheese with pineapple",
                     "Lunch: Grilled salmon, brown rice, mixed vegetables",
@@ -87,7 +91,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Lean beef stir-fry with vegetables and noodles",
                     "Evening: Greek yogurt with honey"
                 ],
-                over_200: [
+                over_200; [
                     "Breakfast: Whole grain waffles with peanut butter, scrambled eggs",
                     "Mid-morning: Protein bar",
                     "Lunch: Chicken and avocado wrap, side salad",
@@ -96,10 +100,10 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Evening: Casein protein shake"
                 ]
             }
-        },
-        female: {
-            bulk: {
-                under_150: [
+        }
+        female; {
+            bulk; {
+                under_150; [
                     "Breakfast: 2 whole eggs, 1 slice whole grain toast, 1 banana",
                     "Mid-morning: Protein shake with 1 scoop whey, 1/2 cup oats",
                     "Lunch: 4 oz grilled chicken breast, 1/2 cup brown rice, 1 cup mixed vegetables",
@@ -107,7 +111,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: 6 oz salmon fillet, 1 medium sweet potato, 1.5 cups broccoli",
                     "Evening: Casein protein shake"
                 ],
-                '150_200': [
+                '150_200'; [
                     "Breakfast: 3 whole eggs, 2 slices whole grain toast, 1 apple",
                     "Mid-morning: Protein smoothie with fruits and oats",
                     "Lunch: 6 oz grilled chicken breast, 1 cup brown rice, 1.5 cups mixed vegetables",
@@ -115,7 +119,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: 8 oz lean beef steak, 1.5 cups quinoa, 2 cups asparagus",
                     "Evening: Greek yogurt with 1 tbsp almond butter"
                 ],
-                over_200: [
+                over_200; [
                     "Breakfast: 3 whole eggs, 3 slices whole grain toast, 1 banana",
                     "Mid-morning: Mass gainer shake",
                     "Lunch: 8 oz grilled chicken breast, 1.5 cups brown rice, 2 cups mixed vegetables",
@@ -123,9 +127,9 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: 10 oz salmon fillet, 2 medium sweet potatoes, 2.5 cups broccoli",
                     "Evening: Casein protein shake, 1 tbsp peanut butter"
                 ]
-            },
-            lose_weight: {
-                under_150: [
+            }
+            lose_weight; {
+                under_150; [
                     "Breakfast: Greek yogurt with berries and chia seeds",
                     "Mid-morning: Small handful of almonds",
                     "Lunch: Grilled chicken salad with mixed greens and light vinaigrette",
@@ -133,9 +137,9 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Baked cod, roasted vegetables, quinoa",
                     "Evening: Herbal tea"
                 ],
-        female: {
-            bulk: {
-                under_150: [
+        female; {
+            bulk; {
+                under_150; [
                     "Breakfast: 2 eggs, oatmeal with berries, protein shake",
                     "Mid-morning: Apple with almond butter",
                     "Lunch: Grilled chicken salad with quinoa",
@@ -143,7 +147,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Post-workout: Protein shake with banana",
                     "Dinner: Salmon, brown rice, asparagus"
                 ],
-                '150_200': [
+                '150_200'; [
                     "Breakfast: 3 eggs, overnight oats, protein shake",
                     "Mid-morning: Protein smoothie",
                     "Lunch: Turkey wrap with avocado",
@@ -151,7 +155,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Post-workout: Protein shake",
                     "Dinner: Grilled chicken, sweet potato, vegetables"
                 ],
-                over_200: [
+                over_200; [
                     "Breakfast: 3 eggs, protein pancakes, smoothie",
                     "Mid-morning: Greek yogurt parfait",
                     "Lunch: Tuna pasta salad",
@@ -159,9 +163,9 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Post-workout: Recovery shake",
                     "Dinner: Lean beef stir-fry with rice"
                 ]
-            },
-            lose_weight: {
-                under_150: [
+            }
+            lose_weight; {
+                under_150; [
                     "Breakfast: Greek yogurt with berries and chia seeds",
                     "Mid-morning: Small handful of almonds",
                     "Lunch: Grilled chicken salad with mixed greens and light vinaigrette",
@@ -169,7 +173,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Baked cod, roasted vegetables, quinoa",
                     "Evening: Herbal tea"
                 ],
-                '150_200': [
+                '150_200'; [
                     "Breakfast: Spinach and mushroom egg white frittata",
                     "Mid-morning: Protein smoothie (1/2 scoop whey, berries, almond milk)",
                     "Lunch: Turkey and avocado wrap with whole grain tortilla",
@@ -177,7 +181,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled shrimp skewers, brown rice, steamed broccoli",
                     "Evening: Cottage cheese with cinnamon"
                 ],
-                over_200: [
+                over_200; [
                     "Breakfast: Overnight oats with protein powder and berries",
                     "Mid-morning: Hard-boiled egg",
                     "Lunch: Lentil soup with side salad",
@@ -185,9 +189,9 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled chicken breast, sweet potato, green beans",
                     "Evening: Sugar-free jello with whipped cream"
                 ]
-            },
-            maintain_weight: {
-                under_150: [
+            }
+            maintain_weight; {
+                under_150; [
                     "Breakfast: Greek yogurt parfait with granola and berries",
                     "Mid-morning: Apple slices with almond butter",
                     "Lunch: Grilled chicken salad with mixed greens and light dressing",
@@ -195,7 +199,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Baked salmon, quinoa, roasted vegetables",
                     "Evening: Small handful of mixed nuts"
                 ],
-                '150_200': [
+                '150_200'; [
                     "Breakfast: 2 egg omelet with spinach and feta, whole grain toast",
                     "Mid-morning: Protein smoothie",
                     "Lunch: Turkey and avocado wrap with side salad",
@@ -203,7 +207,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled shrimp skewers, brown rice, steamed broccoli",
                     "Evening: Cottage cheese with cinnamon"
                 ],
-                over_200: [
+                over_200; [
                     "Breakfast: Oatmeal with protein powder, banana, and chia seeds",
                     "Mid-morning: Hard-boiled eggs",
                     "Lunch: Tuna salad sandwich on whole grain bread, vegetable soup",
@@ -211,9 +215,9 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled chicken breast, sweet potato, green beans",
                     "Evening: Sugar-free yogurt with sliced almonds"
                 ]
-            },
-            gain_weight: {
-                under_150: [
+            }
+            gain_weight; {
+                under_150; [
                     "Breakfast: 3 egg omelet with cheese, whole grain toast with avocado",
                     "Mid-morning: Protein smoothie with oats and peanut butter",
                     "Lunch: Grilled chicken sandwich, side salad with olive oil dressing",
@@ -221,7 +225,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Salmon, quinoa, roasted vegetables with olive oil",
                     "Evening: Cottage cheese with pineapple"
                 ],
-                '150_200': [
+                '150_200'; [
                     "Breakfast: Whole grain waffles with peanut butter, scrambled eggs",
                     "Mid-morning: Trail mix with dried fruits and nuts",
                     "Lunch: Chicken and avocado wrap, vegetable soup",
@@ -229,7 +233,7 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Lean beef stir-fry with vegetables and brown rice",
                     "Evening: Greek yogurt with granola and berries"
                 ],
-                over_200: [
+                over_200; [
                     "Breakfast: Breakfast burrito with eggs, cheese, and avocado",
                     "Mid-morning: Protein smoothie with whole milk and oats",
                     "Lunch: Tuna pasta salad with olive oil dressing",
@@ -241,11 +245,11 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
         }
     }
 
-    ,return: mealPlans[gender]?.[goal]?.[weightRange] || ["No specific meal plan available"]
-},
+    return mealPlans[gender]?.[goal]?.[weightRange] || ["No specific meal plan available"]
+}
 
-function: displayMeals(meals) ,
-    const: container = document.getElementById('mealSuggestions'),;
+function displayMeals(meals) {
+    const container = document.getElementById('mealSuggestions');
     container.innerHTML = '';
 
     meals.forEach(meal => {
@@ -455,3 +459,4 @@ document.getElementById('gender').addEventListener('change', function() {
         displayWorkouts(goal, gender);
     }
 });
+}
