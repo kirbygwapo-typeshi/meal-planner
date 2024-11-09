@@ -22,7 +22,7 @@ function fetchMealSuggestions(weightRange, goal, gender) {
 function getMealsByGoalAndGender(goal, weightRange, gender) {
     const mealPlans = {
         male: {
-            bulk: {
+            gain_weight: {
                 under_150: [
                     "Breakfast: 3 whole eggs, 2 slices whole grain toast, 1 banana",
                     "Mid-morning: Protein shake with 2 scoops whey, 1 cup oats, 1 tbsp peanut butter",
@@ -74,35 +74,9 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Evening: Greek yogurt with almonds"
                 ]
             },
-            maintain_weight: {
-                under_150: [
-                    "Breakfast: 3 eggs, whole grain toast, 1 apple",
-                    "Mid-morning: Greek yogurt with berries",
-                    "Lunch: Turkey sandwich on whole grain bread, carrot sticks",
-                    "Afternoon snack: Protein shake",
-                    "Dinner: Grilled chicken breast, quinoa, steamed vegetables",
-                    "Evening: Small handful of mixed nuts"
-                ],
-                '150_200': [
-                    "Breakfast: Oatmeal with protein powder, banana, and almonds",
-                    "Mid-morning: Cottage cheese with pineapple",
-                    "Lunch: Grilled salmon, brown rice, mixed vegetables",
-                    "Afternoon snack: Whole grain crackers with hummus",
-                    "Dinner: Lean beef stir-fry with vegetables and noodles",
-                    "Evening: Greek yogurt with honey"
-                ],
-                over_200: [
-                    "Breakfast: Whole grain waffles with peanut butter, scrambled eggs",
-                    "Mid-morning: Protein bar",
-                    "Lunch: Chicken and avocado wrap, side salad",
-                    "Afternoon snack: Apple with almond butter",
-                    "Dinner: Grilled steak, sweet potato, broccoli",
-                    "Evening: Casein protein shake"
-                ]
-            }
         },
         female: {
-            bulk: {
+            gain_weight: {
                 under_150: [
                     "Breakfast: 2 eggs, oatmeal with berries, protein shake",
                     "Mid-morning: Apple with almond butter",
@@ -153,58 +127,6 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled chicken breast, sweet potato, green beans",
                     "Evening: Sugar-free jello with whipped cream"
                 ]
-            },
-            maintain_weight: {
-                under_150: [
-                    "Breakfast: Greek yogurt parfait with granola and berries",
-                    "Mid-morning: Apple slices with almond butter",
-                    "Lunch: Grilled chicken salad with mixed greens and light dressing",
-                    "Afternoon snack: Carrot sticks with hummus",
-                    "Dinner: Baked salmon, quinoa, roasted vegetables",
-                    "Evening: Small handful of mixed nuts"
-                ],
-                '150_200': [
-                    "Breakfast: 2 egg omelet with spinach and feta, whole grain toast",
-                    "Mid-morning: Protein smoothie",
-                    "Lunch: Turkey and avocado wrap with side salad",
-                    "Afternoon snack: Greek yogurt with berries",
-                    "Dinner: Grilled shrimp skewers, brown rice, steamed broccoli",
-                    "Evening: Cottage cheese with cinnamon"
-                ],
-                over_200: [
-                    "Breakfast: Oatmeal with protein powder, banana, and chia seeds",
-                    "Mid-morning: Hard-boiled eggs",
-                    "Lunch: Tuna salad sandwich on whole grain bread, vegetable soup",
-                    "Afternoon snack: Protein bar",
-                    "Dinner: Grilled chicken breast, sweet potato, green beans",
-                    "Evening: Sugar-free yogurt with sliced almonds"
-                ]
-            },
-            gain_weight: {
-                under_150: [
-                    "Breakfast: 3 egg omelet with cheese, whole grain toast with avocado",
-                    "Mid-morning: Protein smoothie with oats and peanut butter",
-                    "Lunch: Grilled chicken sandwich, side salad with olive oil dressing",
-                    "Afternoon snack: Greek yogurt with granola and honey",
-                    "Dinner: Salmon, quinoa, roasted vegetables with olive oil",
-                    "Evening: Cottage cheese with pineapple"
-                ],
-                '150_200': [
-                    "Breakfast: Whole grain waffles with peanut butter, scrambled eggs",
-                    "Mid-morning: Trail mix with dried fruits and nuts",
-                    "Lunch: Chicken and avocado wrap, vegetable soup",
-                    "Afternoon snack: Protein bar and banana",
-                    "Dinner: Lean beef stir-fry with vegetables and brown rice",
-                    "Evening: Greek yogurt with granola and berries"
-                ],
-                over_200: [
-                    "Breakfast: Breakfast burrito with eggs, cheese, and avocado",
-                    "Mid-morning: Protein smoothie with whole milk and oats",
-                    "Lunch: Tuna pasta salad with olive oil dressing",
-                    "Afternoon snack: Peanut butter and jelly sandwich",
-                    "Dinner: Grilled steak, baked potato with sour cream, vegetables",
-                    "Evening: Casein protein shake with almond butter"
-                ]
             }
         }
     };
@@ -227,21 +149,6 @@ function displayMeals(meals) {
 function getWorkoutsByGoal(goal, gender) {
     const workouts = {
         male: {
-            bulk: [
-                {
-                    name: "Heavy Compound Workout",
-                    difficulty: "Advanced",
-                    duration: "75 minutes",
-                    target: "Muscle Growth",
-                    exercises: [
-                        { name: "Barbell Bench Press", sets: 5, reps: "5-8" },
-                        { name: "Deadlifts", sets: 5, reps: "5-8" },
-                        { name: "Military Press", sets: 4, reps: "6-10" },
-                        { name: "Barbell Rows", sets: 4, reps: "8-12" },
-                        { name: "Weighted Dips", sets: 3, reps: "8-12" }
-                    ]
-                }
-            ],
             lose_weight: [
                 {
                     name: "High-Intensity Circuit Training",
@@ -254,22 +161,6 @@ function getWorkoutsByGoal(goal, gender) {
                         { name: "Jump Rope", sets: 4, reps: "1 minute" },
                         { name: "Bodyweight Squats", sets: 4, reps: "20" },
                         { name: "Push-ups", sets: 4, reps: "15" }
-                    ]
-                }
-            ],
-            maintain_weight: [
-                {
-                    name: "Balanced Full Body Workout",
-                    difficulty: "Intermediate",
-                    duration: "60 minutes",
-                    target: "Overall Fitness",
-                    exercises: [
-                        { name: "Barbell Squats", sets: 3, reps: "8-10" },
-                        { name: "Push-ups", sets: 3, reps: "10-15" },
-                        { name: "Dumbbell Rows", sets: 3, reps: "10-12 each arm" },
-                        { name: "Plank", sets: 3, reps: "30-60 seconds" },
-                        { name: "Lunges", sets: 3, reps: "12 each leg" },
-                        { name: "Pull-ups", sets: 3, reps: "6-10" }
                     ]
                 }
             ],
@@ -290,21 +181,6 @@ function getWorkoutsByGoal(goal, gender) {
             ]
         },
         female: {
-            bulk: [
-                {
-                    name: "Progressive Strength Training",
-                    difficulty: "Intermediate",
-                    duration: "65 minutes",
-                    target: "Muscle Development",
-                    exercises: [
-                        { name: "Dumbbell Squats", sets: 4, reps: "8-12" },
-                        { name: "Assisted Pull-ups", sets: 3, reps: "8-10" },
-                        { name: "Dumbbell Bench Press", sets: 4, reps: "8-12" },
-                        { name: "Hip Thrusts", sets: 4, reps: "12-15" },
-                        { name: "Shoulder Press", sets: 3, reps: "10-12" }
-                    ]
-                }
-            ],
             lose_weight: [
                 {
                     name: "Fat-Burning Circuit",
@@ -317,21 +193,6 @@ function getWorkoutsByGoal(goal, gender) {
                         { name: "Step-ups", sets: 3, reps: "12 each leg" },
                         { name: "Tricep Dips", sets: 3, reps: "12" },
                         { name: "Bicycle Crunches", sets: 3, reps: "30 seconds" }
-                    ]
-                }
-            ],
-            maintain_weight: [
-                {
-                    name: "Full Body Toning",
-                    difficulty: "Intermediate",
-                    duration: "50 minutes",
-                    target: "Overall Fitness",
-                    exercises: [
-                        { name: "Walking Lunges", sets: 3, reps: "10 each leg" },
-                        { name: "Modified Push-ups", sets: 3, reps: "10-12" },
-                        { name: "Resistance Band Rows", sets: 3, reps: "12-15" },
-                        { name: "Glute Bridges", sets: 3, reps: "15" },
-                        { name: "Side Planks", sets: 3, reps: "30 seconds each side" }
                     ]
                 }
             ],
