@@ -98,7 +98,7 @@ button:hover {
 
 .meal-item {
     background-color: rgba(255, 255, 255, 0.8); /* Changed for better contrast */
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
