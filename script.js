@@ -250,11 +250,11 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
 
 function displayMeals(meals) {
     const container = document.getElementById('mealSuggestions');
-    container.innerHTML = '';
+    container.innerHTML = ''; // Clear previous suggestions
 
     meals.forEach(meal => {
         const mealElement = document.createElement('div');
-        mealElement.className = 'meal-card';
+        mealElement.className = 'meal-item'; // Ensure this matches your CSS
         mealElement.textContent = meal;
         container.appendChild(mealElement);
     });
@@ -394,7 +394,7 @@ function getWorkoutsByGoal(goal, gender) {
 function displayWorkouts(goal, gender) {
     const workoutSuggestions = getWorkoutsByGoal(goal, gender);
     const workoutContainer = document.getElementById('workoutSuggestions');
-    workoutContainer.innerHTML = '';
+    workoutContainer.innerHTML = ''; // Clear previous workouts
 
     workoutSuggestions.forEach(workout => {
         const workoutCard = document.createElement('div');
@@ -426,26 +426,5 @@ function displayWorkouts(goal, gender) {
     if (workoutSuggestions.length === 0) {
         workoutContainer.innerHTML = '<p>No specific workouts available for this goal and gender combination.</p>';
     }
-}
-
-
-function calculateCalories(gender, weight, height, age, activityLevel) {
-    
-    let bmr;
-    if (gender === 'male') {
-        bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-    } else {
-        bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
-    }
-
-    const activityMultipliers = {
-        sedentary: 1.2,
-        light: 1.375,
-        moderate: 1.55,
-        active: 1.725,
-        veryActive: 1.9
-    };
-
-    return Math.round(bmr * activityMultipliers[activityLevel]);
 }
 }
