@@ -104,42 +104,6 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
         female; {
             bulk; {
                 under_150; [
-                    "Breakfast: 2 whole eggs, 1 slice whole grain toast, 1 banana",
-                    "Mid-morning: Protein shake with 1 scoop whey, 1/2 cup oats",
-                    "Lunch: 4 oz grilled chicken breast, 1/2 cup brown rice, 1 cup mixed vegetables",
-                    "Afternoon snack: 1/2 cup Greek yogurt, 1/8 cup mixed nuts",
-                    "Dinner: 6 oz salmon fillet, 1 medium sweet potato, 1.5 cups broccoli",
-                    "Evening: Casein protein shake"
-                ],
-                '150_200'; [
-                    "Breakfast: 3 whole eggs, 2 slices whole grain toast, 1 apple",
-                    "Mid-morning: Protein smoothie with fruits and oats",
-                    "Lunch: 6 oz grilled chicken breast, 1 cup brown rice, 1.5 cups mixed vegetables",
-                    "Afternoon snack: 1 cup cottage cheese, 1/4 cup mixed berries",
-                    "Dinner: 8 oz lean beef steak, 1.5 cups quinoa, 2 cups asparagus",
-                    "Evening: Greek yogurt with 1 tbsp almond butter"
-                ],
-                over_200; [
-                    "Breakfast: 3 whole eggs, 3 slices whole grain toast, 1 banana",
-                    "Mid-morning: Mass gainer shake",
-                    "Lunch: 8 oz grilled chicken breast, 1.5 cups brown rice, 2 cups mixed vegetables",
-                    "Afternoon snack: 2 cups Greek yogurt, 1/4 cup granola, 1/8 cup mixed nuts",
-                    "Dinner: 10 oz salmon fillet, 2 medium sweet potatoes, 2.5 cups broccoli",
-                    "Evening: Casein protein shake, 1 tbsp peanut butter"
-                ]
-            }
-            lose_weight; {
-                under_150; [
-                    "Breakfast: Greek yogurt with berries and chia seeds",
-                    "Mid-morning: Small handful of almonds",
-                    "Lunch: Grilled chicken salad with mixed greens and light vinaigrette",
-                    "Afternoon snack: Apple slices with 1 tbsp peanut butter",
-                    "Dinner: Baked cod, roasted vegetables, quinoa",
-                    "Evening: Herbal tea"
-                ],
-        female; {
-            bulk; {
-                under_150; [
                     "Breakfast: 2 eggs, oatmeal with berries, protein shake",
                     "Mid-morning: Apple with almond butter",
                     "Lunch: Grilled chicken salad with quinoa",
@@ -246,7 +210,6 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
     }
 
     return mealPlans[gender]?.[goal]?.[weightRange] || ["No specific meal plan available"]
-}
 
 function displayMeals(meals) {
     const container = document.getElementById('mealSuggestions');
@@ -427,4 +390,4 @@ function displayWorkouts(goal, gender) {
         workoutContainer.innerHTML = '<p>No specific workouts available for this goal and gender combination.</p>';
     }
 }
-}
+
