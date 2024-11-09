@@ -448,15 +448,4 @@ function calculateCalories(gender, weight, height, age, activityLevel) {
 
     return Math.round(bmr * activityMultipliers[activityLevel]);
 }
-
-document.getElementById('gender').addEventListener('change', function() {
-    const goal = document.getElementById('goal').value;
-    const weightRange = document.getElementById('weightRange').value;
-    const gender = this.value;
-
-    if (goal && weightRange && gender) {
-        fetchMealSuggestions(weightRange, goal, gender);
-        displayWorkouts(goal, gender);
-    }
-});
 }
