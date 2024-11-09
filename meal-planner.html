@@ -11,11 +11,6 @@
         <h1 class="cube-text">Meal Planner</h1>
 
         <form id="mealPlanForm">
-            <div class="container">
-                <div class="labels">
-                    <label for="goal">Select Your Goal:</label>
-                </div>
-
                 <div class="container">
                     <div class="labels">
                         <label for="gender">Select Gender:</label>
@@ -28,32 +23,32 @@
                         </select>
                     </div>
                 </div>
-                
-                <div class="values">
-                    <select id="goal" required>
-                        <option value="">--Select Goal--</option>
-                        <option value="bulk">Bulk</option>
-                        <option value="diet">Diet</option>
-                        <option value="lose_weight">Lose Weight</option>
-                        <option value="gain_weight">Gain Weight</option>
-                        <option value="maintain">Maintain Weight</option>
-                    </select>
+                <div class="container">
+                    <div class="labels">
+                        <label for="goal">Select Your Goal:</label>
+                    </div>
+                     <div class="values">
+                        <select id="goal" required>
+                            <option value="">--Select Goal--</option>
+                            <option value="gain_weight">Gain Weight</option>
+                            <option value="lose_weight">Lose Weight</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="container">
-                <div class="labels">
-                    <label for="weightRange">Select Weight Range:</label>
+                <div class="container">
+                    <div class="labels">
+                        <label for="weightRange">Select Weight Range:</label>
+                    </div>
+                    <div class="values">
+                        <select id="weightRange" required>
+                            <option value="">--Select Weight Range--</option>
+                            <option value="under_150">Under 150 lbs</option>
+                            <option value="150_200">150 - 200 lbs</option>
+                            <option value="over_200">Over 200 lbs</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="values">
-                    <select id="weightRange" required>
-                        <option value="">--Select Weight Range--</option>
-                        <option value="under_150">Under 150 lbs</option>
-                        <option value="150_200">150 - 200 lbs</option>
-                        <option value="over_200">Over 200 lbs</option>
-                    </select>
-                </div>
-            </div>
 
             <div class="buttonContainer">
                 <button type="submit">Get Meal Suggestions</button>
