@@ -3,18 +3,513 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zephyr Planner</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Zephyr - Health & Fitness</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #00a0ff;
+            --accent: #ff3e8f;
+            --dark: #000033;
+            --text: #ffffff;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .login-section {
+            padding: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .visual-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagonal-bg {
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #0066cc, #6600cc);
+            transform: rotate(-15deg);
+            z-index: 0;
+        }
+
+        .light-streaks {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: moveStreaks 20s linear infinite;
+        }
+
+        @keyframes moveStreaks {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-50px) translateY(50px); }
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.5s ease forwards 0.2s;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.5s ease forwards 0.4s;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.5s ease forwards 0.6s;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeUp 0.5s ease forwards 0.8s;
+        }
+
+        button:hover {
+            background: #0088dd;
+        }
+
+        .about-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            color: var(--text);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .about-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            background: linear-gradient(135deg, #001a33, #000066);
+            padding: 2rem;
+            border-radius: 16px;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            width: auto;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-screen.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--primary);
+            border-top: 5px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Post-login Screen */
+        .post-login {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .post-login.active {
+            display: flex;
+        }
+
+        .fitness-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .welcome-message {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .fitness-goals {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .goal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .goal:hover {
+            transform: translateY(-10px);
+        }
+
+        .goal i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .visual-section {
+                display: none;
+            }
+
+            .login-section {
+                padding: 2rem;
+            }
+
+            .fitness-goals {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="root">
-        <h1 class="cube-text">Zephyr Planner</h1>
-        <div class="content">
-            <p>Welcome to Zephyr Planner. Please log in to access the meal planner.</p>
-            <div class="buttonContainer">
-                <a href="login.html" class="button">Log In</a>
+    <button class="about-btn">About Zephyr</button>
+
+    <div class="container">
+        <div class="login-section">
+            <div class="logo">Zephyr</div>
+            <h1>Transform your lifestyle with AI-powered fitness</h1>
+            <p>Track your progress, get personalized workouts, and achieve your health goals</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit">Get Started</button>
+            </form>
+        </div>
+        
+        <div class="visual-section">
+            <div class="diagonal-bg"></div>
+            <div class="light-streaks"></div>
+        </div>
+    </div>
+
+    <div class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2 style="margin-bottom: 1.5rem">About Zephyr</h2>
+            <div style="line-height: 1.6">
+                <p>Welcome to Zephyr - your comprehensive health and fitness companion powered by advanced AI technology.</p>
+                <p>Our platform offers:</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem">
+                    <li>Precise tracking of your weight and height measurements</li>
+                    <li>Personalized workout plans tailored to your fitness level</li>
+                    <li>Detailed meal preparations and nutrition guidance</li>
+                    <li>Interactive features for tracking your progress</li>
+                    <li>AI-powered recommendations for optimal results</li>
+                </ul>
+                <p>Join us on your journey to a healthier lifestyle with personalized guidance every step of the way.</p>
             </div>
         </div>
     </div>
+
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    <div class="post-login">
+        <i class="fas fa-dumbbell fitness-icon"></i>
+        <h2 class="welcome-message">Welcome to Zephyr!</h2>
+        <p>Choose your primary fitness goal:</p>
+        <div class="fitness-goals">
+            <div class="goal">
+                <i class="fas fa-weight"></i>
+                <span>Lose Weight</span>
+            </div>
+            <div class="goal">
+                <i class="fas fa-dumbbell"></i>
+                <span>Build Muscle</span>
+            </div>
+            <div class="goal">
+                <i class="fas fa-heart"></i>
+                <span>Improve Health</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ripple effect
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const x = e.clientX - e.target.offsetLeft;
+                const y = e.clientY - e.target.offsetTop;
+                
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Modal handling
+        const modal = document.querySelector('.modal');
+        const aboutBtn = document.querySelector('.about-btn');
+        const closeBtn = document.querySelector('.close-btn');
+
+        aboutBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Form handling
+        const loadingScreen = document.querySelector('.loading-screen');
+        const postLogin = document.querySelector('.post-login');
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const button = e.target.querySelector('button');
+            const originalText = button.textContent;
+            
+            // Add loading state
+            button.disabled = true;
+            button.textContent = 'Loading...';
+            loadingScreen.classList.add('active');
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                loadingScreen.classList.remove('active');
+                postLogin.classList.add('active');
+            } catch (error) {
+                alert('Login failed. Please try again.');
+                loadingScreen.classList.remove('active');
+            } finally {
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        });
+
+        // Add dynamic light streaks
+        const visualSection = document.querySelector('.visual-section');
+        visualSection.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { left, top, width, height } = visualSection.getBoundingClientRect();
+            const x = (clientX - left) / width;
+            const y = (clientY - top) / height;
+            
+            visualSection.style.setProperty('--mouse-x', x);
+            visualSection.style.setProperty('--mouse-y', y);
+        });
+
+        // Fitness goal selection
+        document.querySelectorAll('.goal').forEach(goal => {
+            goal.addEventListener('click', () => {
+                alert(`You've selected: ${goal.querySelector('span').textContent}`);
+                // Here you would typically redirect to a dashboard or the next step
+            });
+        });
+    </script>
 </body>
 </html>
