@@ -74,6 +74,33 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Evening: Greek yogurt with almonds"
                 ]
             },
+             maintain_weight: {
+                under_150: [
+                    "Breakfast: 2 scrambled eggs, 1 slice of whole-grain toast, 1/4 avocado,1 small orange or 1/2 grapefruit",
+                    "Mid-morning: Apple with 1 tbsp almond butter",
+                    "Lunch: Grilled chicken breast, 1 cup cooked quinoa or brown rice, 1.5 cups mixed vegetables",
+                    "Afternoon snack: 1 handful of mixed nuts, 1 string cheese",
+                    "Dinner: Baked salmon or grilled tofu, 1 medium sweet potato, 1 cup steamed broccoli",
+                    "Evening: 1 small bowl of air-popped popcorn  or 1 cup warm milk with cinnamon"
+                ],
+                '150_200': [
+                    "Breakfast: 3 scrambled eggs, 1 slice whole-grain toast with 1 tbsp butter or almond butter, 1/2 avocado, 1 small banana",
+                    "Mid-morning: 1 medium pear or apple, 1 handful of almonds or walnuts",
+                    "Lunch: Grilled salmon, 1 medium sweet potato, 1 cup green beans or asparagus",
+                    "Afternoon snack: 1 cup Greek yogurt, 1/4 cup granola or 1 tbsp chia seeds",
+                    "Dinner: Grilled steak or chicken thigh, 1 cup roasted or mashed cauliflower, 1 cup sautéed spinach with garlic",
+                    "Evening: 1 small protein smoothie"
+                ],
+                over_200: [
+                    "Breakfast: 4 scrambled eggs, 2 slices whole-grain toast with 1 tbsp butter or 1/4 avocado, 1 medium apple or orange, 1 cup black coffee or green tea",
+                    "Mid-morning: 1 protein smoothie, 1 scoop protein powder, 1 banana, 1 tbsp almond butter, 1 cup unsweetened almond milk",
+                    "Lunch: Grilled chicken breast, 1.5 cups cooked brown rice or quinoa, 2 cups roasted vegetables, 1 tbsp olive oil or vinaigrette",
+                    "Afternoon snack: 1 string cheese, 1 handful mixed nuts or trail mix, 1 medium fruit",
+                    "Dinner: Grilled salmon or steak, 1 medium baked potato, 2 cups mixed greens or sautéed vegetables",
+                    "Evening: 1 cup cottage cheese with 1/4 cup pineapple or berries or 2 rice cakes with 1 tbsp almond or peanut butter"
+                ]
+            },
+            
         },
         female: {
             gain_weight: {
@@ -127,7 +154,33 @@ function getMealsByGoalAndGender(goal, weightRange, gender) {
                     "Dinner: Grilled chicken breast, sweet potato, green beans",
                     "Evening: Sugar-free jello with whipped cream"
                 ]
-            }
+            },
+            maintain_weight: {
+                under_150: [
+                    "Breakfast: 2 boiled eggs, 1 slice of whole-grain toast, 1/4 avocado, 1 small orange or 1/2 grapefruit",
+                    "Mid-morning: 1 small handful of raw almonds, 1 cup green tea",
+                    "Lunch: Grilled chicken breast, 1/2 cup quinoa, 1 cup steamed green beans and carrots, 1 tsp olive oil for drizzling",
+                    "Pre-workout: 1 small banana, 1 tbsp peanut butter",
+                    "Post-workout: 1 cup plain Greek yogurt, 1/2 cup mixed berries, 1 tsp honey",
+                    "Dinner: 3 oz baked salmon, 1 medium baked sweet potato, 1 cup sautéed spinach with garlic and olive oil"
+                ],
+                '150_200': [
+                    "Breakfast: 3 scrambled eggs, 1 slice whole-grain toast, 1/4 avocado, 1/2 cup mixed berries",
+                    "Mid-morning: 1 small apple, 1 tbsp almond butter",
+                    "Lunch: 1 whole-wheat tortilla, 4 oz sliced turkey breast, 1 tbsp hummus, Lettuce, tomato, cucumber, and shredded carrots, Side salad",
+                    "Pre-workout: 1 rice cake topped with 1 tbsp almond butter",
+                    "Post-workout: Protein shake: 1 cup almond milk, 1 scoop protein powder, 1/2 banana",
+                    "Dinner: 4 oz grilled chicken breast, 1/2 cup roasted sweet potatoes, 1 cup sautéed spinach with garlic"
+                ],
+                over_200: [
+                    "Breakfast: 3 eggs, protein pancakes, smoothie",
+                    "Mid-morning: Greek yogurt parfait",
+                    "Lunch: Tuna pasta salad",
+                    "Pre-workout: Protein bar",
+                    "Post-workout: Recovery shake",
+                    "Dinner: Lean beef stir-fry with rice"
+                ]
+            },
         }
     };
 
@@ -178,6 +231,23 @@ function getWorkoutsByGoal(goal, gender) {
                         { name: "Overhead Press", sets: 4, reps: "6-8" }
                     ]
                 }
+            ],
+            maintain_weight: [
+                {
+                    name: "Power & Performance Full-Body Workout",
+                    difficulty: "Intense",
+                    duration: "45–60 minutes",
+                    target: "Build strength, improve endurance, and tone all major muscle groups",
+                    exercises: [
+                        { name: "Dumbbell/Barbell Squats", sets: 3, reps: "12" },
+                        { name: "Standard Push-Ups", sets: 3, reps: "12-15" },
+                        { name: "Dumbbell or Barbell Rows", sets: 3, reps: "10" },
+                        { name: "Barbell Deadlifts", sets: 3, reps: "8" },
+                        { name: "Use heavier weights", sets: 3, sets: "10" },
+                        { name: "All Levels: Alternate between plank and push-up position", sets: 3, sets: "12" },
+                        { name: "Standard Burpees", sets: 3, sets: "10" }
+                    ]
+                }
             ]
         },
         female: {
@@ -208,6 +278,22 @@ function getWorkoutsByGoal(goal, gender) {
                         { name: "Romanian Deadlifts", sets: 4, reps: "10-12" },
                         { name: "Assisted Pull-ups", sets: 3, reps: "8-10" },
                         { name: "Walking Lunges", sets: 3, reps: "12 each leg" }
+                    ]
+                }
+            ],
+            maintain_weight: [
+                {
+                    name: "Total Body Tune-Up",
+                    difficulty: "Moderate",
+                    duration: "45 minutes",
+                    target: "Strengthen muscles and maintain lean mass",
+                    exercises: [
+                        { name: "Bodyweight Squats", sets: 3, reps: "12" },
+                        { name: "Push-Ups", sets: 3, reps: "10-12" },
+                        { name: "Dumbbell Deadlifts", sets: 3, reps: "12" },
+                        { name: "Bent-Over Dumbbell Rows", sets: 3, reps: "12" },
+                        { name: "Lunges", sets: 3, reps: "10 each leg" }
+                        
                     ]
                 }
             ]
