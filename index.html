@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zephyr - Health & Fitness</title>
+    <title>Zephyr - AI-Powered Fitness Transformation</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #ff6b6b;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --text: #333333;
+        }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        :root {
-            --primary: #00a0ff;
-            --accent: #ff3e8f;
-            --dark: #000033;
-            --text: #ffffff;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
             min-height: 100vh;
             background: var(--dark);
-            color: var(--text);
+            color: var(--light);
             overflow-x: hidden;
         }
 
@@ -33,90 +35,74 @@
             position: relative;
             width: 100%;
             min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
         }
 
-        .login-section {
-            padding: 4rem;
+        .content-wrapper {
             position: relative;
+            width: 100%;
+            max-width: 1400px; /* Increased from 1200px */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
             z-index: 1;
         }
 
+        .login-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
         .visual-section {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .diagonal-bg {
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, #0066cc, #6600cc);
-            transform: rotate(-15deg);
-            z-index: 0;
-        }
-
-        .light-streaks {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255,255,255,0.1) 10px,
-                rgba(255,255,255,0.1) 20px
-            );
-            animation: moveStreaks 20s linear infinite;
-        }
-
-        @keyframes moveStreaks {
-            0% { transform: translateX(0) translateY(0); }
-            100% { transform: translateX(-50px) translateY(50px); }
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeUp 0.5s ease forwards;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             line-height: 1.2;
             margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: fadeUp 0.5s ease forwards 0.2s;
+            color: var(--light);
         }
 
         p {
             font-size: 1.1rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeUp 0.5s ease forwards 0.4s;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: fadeUp 0.5s ease forwards 0.6s;
         }
 
         input {
             width: 100%;
             padding: 1rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
-            color: var(--text);
+            color: var(--light);
             font-size: 1rem;
             transition: all 0.3s ease;
         }
@@ -124,7 +110,7 @@
         input:focus {
             outline: none;
             border-color: var(--primary);
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         button {
@@ -133,19 +119,17 @@
             background: var(--primary);
             border: none;
             border-radius: 8px;
-            color: var(--text);
+            color: var(--light);
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            animation: fadeUp 0.5s ease forwards 0.8s;
         }
 
         button:hover {
-            background: #0088dd;
+            background: #3a7bc8;
         }
 
         .about-btn {
@@ -153,17 +137,17 @@
             top: 2rem;
             right: 2rem;
             padding: 0.75rem 1.5rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
-            color: var(--text);
+            color: var(--light);
             cursor: pointer;
             z-index: 100;
             transition: all 0.3s ease;
         }
 
         .about-btn:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .modal {
@@ -173,7 +157,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -189,7 +173,7 @@
             width: 90%;
             max-width: 600px;
             margin: auto;
-            background: linear-gradient(135deg, #001a33, #000066);
+            background: linear-gradient(135deg, #2a3f54, #1a1a2e);
             padding: 2rem;
             border-radius: 16px;
             transform: translateY(-50px);
@@ -206,41 +190,13 @@
             right: 1rem;
             background: none;
             border: none;
-            color: var(--text);
+            color: var(--light);
             font-size: 1.5rem;
             cursor: pointer;
             padding: 0.5rem;
             width: auto;
         }
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transform: scale(0);
-            animation: ripple 0.6s linear;
-            pointer-events: none;
-        }
-
-        /* Loading Screen */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -276,7 +232,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Post-login Screen */
         .post-login {
             position: fixed;
             top: 0;
@@ -298,6 +253,7 @@
         .fitness-icon {
             font-size: 5rem;
             margin-bottom: 2rem;
+            color: var(--primary);
             animation: pulse 2s infinite;
         }
 
@@ -308,9 +264,10 @@
         }
 
         .welcome-message {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             text-align: center;
+            color: var(--light);
         }
 
         .fitness-goals {
@@ -325,23 +282,69 @@
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            width: 200px;
         }
 
         .goal:hover {
             transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .goal i {
             font-size: 3rem;
             margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .goal span {
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            pointer-events: none;
+            width: 5px;
+            height: 5px;
+            background-color: var(--primary);
+            box-shadow: 0 0 10px 2px rgba(74, 144, 226, 0.2);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
         }
 
         @media (max-width: 768px) {
-            .container {
+            .content-wrapper {
                 grid-template-columns: 1fr;
             }
-            
+
             .visual-section {
                 display: none;
             }
@@ -352,42 +355,60 @@
 
             .fitness-goals {
                 flex-direction: column;
+                align-items: center;
                 gap: 1rem;
             }
+
+            .goal {
+                width: 80%;
+            }
+        }
+
+        /* New animation for About button */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        .about-btn.animate {
+            animation: bounce 0.5s;
         }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
     <button class="about-btn">About Zephyr</button>
 
     <div class="container">
-        <div class="login-section">
-            <div class="logo">Zephyr</div>
-            <h1>Transform your lifestyle with AI-powered fitness</h1>
-            <p>Track your progress, get personalized workouts, and achieve your health goals</p>
+        <div class="content-wrapper">
+            <div class="login-section">
+                <div class="logo"><i class="fas fa-wind"></i> Zephyr</div>
+                <h1>Transform Your Lifestyle with AI-Powered Fitness</h1>
+                <p>Track your progress, get personalized workouts, and achieve your health goals with cutting-edge AI technology.</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit">Get Started</button>
+                </form>
+            </div>
             
-            <form id="loginForm">
-                <div class="form-group">
-                    <input type="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" required>
-                </div>
-                <button type="submit">Get Started</button>
-            </form>
-        </div>
-        
-        <div class="visual-section">
-            <div class="diagonal-bg"></div>
-            <div class="light-streaks"></div>
+            <div class="visual-section">
+                <img src="https://via.placeholder.com/500x500.png?text=Zephyr+AI+Fitness" alt="Zephyr AI Fitness" style="width: 100%; height: auto; border-radius: 20px;">
+            </div>
         </div>
     </div>
 
     <div class="modal">
         <div class="modal-content">
             <button class="close-btn">&times;</button>
-            <h2 style="margin-bottom: 1.5rem">About Zephyr</h2>
-            <div style="line-height: 1.6">
+            <h2 style="margin-bottom: 1.5rem; color: var(--light);">About Zephyr</h2>
+            <div style="line-height: 1.6; color: var(--light);">
                 <p>Welcome to Zephyr - your comprehensive health and fitness companion powered by advanced AI technology.</p>
                 <p>Our platform offers:</p>
                 <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem">
@@ -411,15 +432,15 @@
         <h2 class="welcome-message">Welcome to Zephyr!</h2>
         <p>Choose your primary fitness goal:</p>
         <div class="fitness-goals">
-            <div class="goal">
+            <div class="goal" data-goal="lose-weight">
                 <i class="fas fa-weight"></i>
                 <span>Lose Weight</span>
             </div>
-            <div class="goal">
+            <div class="goal" data-goal="build-muscle">
                 <i class="fas fa-dumbbell"></i>
                 <span>Build Muscle</span>
             </div>
-            <div class="goal">
+            <div class="goal" data-goal="improve-health">
                 <i class="fas fa-heart"></i>
                 <span>Improve Health</span>
             </div>
@@ -427,6 +448,24 @@
     </div>
 
     <script>
+        // Particle background
+        function createParticle() {
+            const particle = document.createElement('span');
+            particle.classList.add('particle');
+            const size = Math.random() * 5 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.animationDuration = Math.random() * 10 + 5 + 's';
+            document.getElementById('particles').appendChild(particle);
+            setTimeout(() => {
+                particle.remove();
+            }, 15000);
+        }
+
+        setInterval(createParticle, 200);
+
         // Ripple effect
         document.querySelectorAll('button').forEach(button => {
             button.addEventListener('click', function(e) {
@@ -434,7 +473,6 @@
                 const y = e.clientY - e.target.offsetTop;
                 
                 const ripple = document.createElement('span');
-                ripple.className = 'ripple';
                 ripple.style.left = `${x}px`;
                 ripple.style.top = `${y}px`;
                 
@@ -451,6 +489,8 @@
 
         aboutBtn.addEventListener('click', () => {
             modal.classList.add('active');
+            aboutBtn.classList.add('animate');
+            setTimeout(() => aboutBtn.classList.remove('animate'), 500);
         });
 
         closeBtn.addEventListener('click', () => {
@@ -491,23 +531,21 @@
             }
         });
 
-        // Add dynamic light streaks
-        const visualSection = document.querySelector('.visual-section');
-        visualSection.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const { left, top, width, height } = visualSection.getBoundingClientRect();
-            const x = (clientX - left) / width;
-            const y = (clientY - top) / height;
-            
-            visualSection.style.setProperty('--mouse-x', x);
-            visualSection.style.setProperty('--mouse-y', y);
-        });
-
         // Fitness goal selection
         document.querySelectorAll('.goal').forEach(goal => {
             goal.addEventListener('click', () => {
-                alert(`You've selected: ${goal.querySelector('span').textContent}`);
-                // Here you would typically redirect to a dashboard or the next step
+                const selectedGoal = goal.getAttribute('data-goal');
+                switch(selectedGoal) {
+                    case 'lose-weight':
+                        window.location.href = 'Entrep2.html';
+                        break;
+                    case 'build-muscle':
+                        window.location.href = 'Entrep3.html';
+                        break;
+                    case 'improve-health':
+                        window.location.href = 'Entrep4.html';
+                        break;
+                }
             });
         });
     </script>
