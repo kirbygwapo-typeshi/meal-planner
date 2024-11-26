@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephyr - Your Interactive Weight Loss Journey</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #ff6b6b;
+            --background: #ffffff;
+            --text: #333333;
+            --light-text: #ffffff;
+            --card-bg: #f0f4f8;
+            --underweight: #ffd700;
+            --normal: #50c878;
+            --overweight: #ffa500;
+            --obese: #ff6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--primary);
+            color: var(--light-text);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .form-section, .result-section {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .form-section:hover, .result-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: var(--light-text);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(74, 144, 226, 0.1);
+        }
+
+        button:hover {
+            background: #3a7bc8;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(74, 144, 226, 0.2);
+        }
+
+        .result {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .result.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bmi-meter {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-top: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bmi-meter-fill {
+            height: 100%;
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        .bmi-categories {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text);
+        }
+
+        .result h3 {
+            margin-top: 1.5rem;
+            color: var(--primary);
+        }
+
+        .suggestion {
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--background);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .tips {
+            margin-top: 2rem;
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .tips h3 {
+            color: var(--primary);
+        }
+
+        .tips ul {
+            list-style-type: none;
+        }
+
+        .tips li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tips li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        .goal-tracker {
+            margin-top: 2rem;
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .goal-tracker h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .goal-input {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .goal-input input {
+            flex: 1;
+        }
+
+        .goal-list {
+            list-style-type: none;
+        }
+
+        .goal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: var(--card-bg);
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .goal-item button {
+            background: var(--accent);
+            color: var(--light-text);
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        #confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-wind"></i>
+            Zephyr
+        </div>
+        <nav class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> Home</a>
+            <a href="#" id="calendarLink"><i class="fas fa-calendar-alt"></i> Calendar</a>
+            <a href="#"><i class="fas fa-user"></i> Profile</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Visualize Yourself</h1>
+        <div class="grid">
+            <div class="form-section">
+                <h2>Calculate Your BMI</h2>
+                <form id="bmiForm">
+                    <div class="form-group">
+                        <label for="weight">Weight (kg):</label>
+                        <input type="number" id="weight" name="weight" required min="20" max="300" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height (cm):</label>
+                        <input type="number" id="height" name="height" required min="100" max="250" step="0.1">
+                    </div>
+                    <button type="submit">Calculate BMI</button>
+                </form>
+            </div>
+            <div class="result-section">
+                <div id="result" class="result">
+                    <h2>Your Results</h2>
+                    <p id="bmiValue"></p>
+                    <div class="bmi-meter">
+                        <div class="bmi-meter-fill"></div>
+                    </div>
+                    <div class="bmi-categories">
+                        <span>Underweight</span>
+                        <span>Normal</span>
+                        <span>Overweight</span>
+                        <span>Obese</span>
+                    </div>
+                    <h3>BMI Category</h3>
+                    <p id="bmiCategory"></p>
+                    <h3>Personalized Suggestion</h3>
+                    <div id="suggestion" class="suggestion"></div>
+                    <div class="chart-container">
+                        <canvas id="bmiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tips">
+            <h3>Healthy Weight Loss Tips</h3>
+            <ul>
+                <li>Set realistic goals and make a plan</li>
+                <li>Focus on nutrient-dense, whole foods</li>
+                <li>Stay hydrated by drinking plenty of water</li>
+                <li>Incorporate regular physical activity</li>
+                <li>Get adequate sleep and manage stress</li>
+                <li>Track your progress and celebrate small victories</li>
+                <li>Seek support from friends, family, or professionals</li>
+            </ul>
+        </div>
+        <div class="goal-tracker">
+            <h3>Goal Tracker</h3>
+            <div class="goal-input">
+                <input type="text" id="goalInput" placeholder="Enter your goal">
+                <button id="addGoal">Add Goal</button>
+            </div>
+            <ul id="goalList" class="goal-list"></ul>
+        </div>
+    </div>
+
+    <canvas id="confetti"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('bmiForm');
+            const result = document.getElementById('result');
+            const bmiValue = document.getElementById('bmiValue');
+            const bmiCategory = document.getElementById('bmiCategory');
+            const suggestion = document.getElementById('suggestion');
+            const bmiMeterFill = document.querySelector('.bmi-meter-fill');
+            const goalInput = document.getElementById('goalInput');
+            const addGoalBtn = document.getElementById('addGoal');
+            const goalList = document.getElementById('goalList');
+            const calendarLink = document.getElementById('calendarLink');
+            let bmiChart;
+            let confettiInstance;
+
+            const confettiSettings = { target: 'confetti', max: 80, size: 2, animate: true, props: ['circle', 'square', 'triangle', 'line'], colors: [[165,104,246],[230,61,135],[0,199,228],[253,214,126]], clock: 25, rotate: true, width: window.innerWidth, height: window.innerHeight };
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const weight = parseFloat(document.getElementById('weight').value);
+                const height = parseFloat(document.getElementById('height').value) / 100; // convert cm to m
+                const bmi = calculateBMI(weight, height);
+                displayResult(bmi);
+            });
+
+            addGoalBtn.addEventListener('click', addGoal);
+            goalInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addGoal();
+                }
+            });
+
+            calendarLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'Entrep5.html';
+            });
+
+            function calculateBMI(weight, height) {
+                return (weight / (height * height)).toFixed(1);
+            }
+
+            function displayResult(bmi) {
+                bmiValue.textContent = `Your BMI: ${bmi}`;
+                let category, advice, color;
+
+                if (bmi < 18.5) {
+                    category = 'Underweight';
+                    advice = 'Your BMI suggests you\'re underweight. Focus on nutrient-dense foods and strength training exercises to build muscle mass. Consult a nutritionist for a personalized plan.';
+                    color = 'var(--underweight)';
+                } else if (bmi >= 18.5 && bmi < 25) {
+                    category = 'Normal weight';
+                    advice = 'Congratulations! Your BMI is within the normal range. Maintain your healthy lifestyle with balanced nutrition and regular exercise.';
+                    color = 'var(--normal)';
+                } else if (bmi >= 25 && bmi < 30) {
+                    category = 'Overweight';
+                    advice = 'Your BMI indicates you\'re overweight. Consider a balanced diet with a slight calorie deficit and regular exercise. Consult a healthcare professional for personalized advice.';
+                    color = 'var(--overweight)';
+                } else {
+                    category = 'Obese';
+                    advice = 'Your BMI suggests obesity. It\'s recommended to consult with a healthcare professional or a registered dietitian for a safe and effective weight loss plan tailored to your needs.';
+                    color = 'var(--obese)';
+                }
+
+                bmiCategory.textContent = `Category: ${category}`;
+                suggestion.innerHTML = `<p>${advice}</p>`;
+                
+                result.classList.add('show');
+                
+                // Update BMI meter
+                const percentage = Math.min((bmi / 40) * 100, 100);
+                bmiMeterFill.style.width = `${percentage}%`;
+                bmiMeterFill.style.background = color;
+
+                // Update or create chart
+                updateBMIChart(bmi, category, color);
+
+                // Trigger confetti for normal weight
+                if (category === 'Normal weight') {
+                    if (confettiInstance) {
+                        confettiInstance.clear();
+                    }
+                    confettiInstance = new ConfettiGenerator(confettiSettings);
+                    confettiInstance.render();
+                    setTimeout(() => {
+                        confettiInstance.clear();
+                    }, 5000);
+                }
+            }
+
+            function updateBMIChart(bmi, category, color) {
+                const ctx = document.getElementById('bmiChart').getContext('2d');
+                
+                if (bmiChart) {
+                    bmiChart.destroy();
+                }
+
+                bmiChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Your BMI', 'Underweight', 'Normal', 'Overweight', 'Obese'],
+                        datasets: [{
+                            label: 'BMI Range',
+                            data: [bmi, 18.5, 25, 30, 40],
+                            backgroundColor: [
+                                color,
+                                'var(--underweight)',
+                                'var(--normal)',
+                                'var(--overweight)',
+                                'var(--obese)'
+                            ],
+                            borderColor: [
+                                color,
+                                'var(--underweight)',
+                                'var(--normal)',
+                                'var(--overweight)',
+                                'var(--obese)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 45,
+                                ticks: {
+                                    color: 'var(--text)'
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: 'var(--text)'
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += context.parsed.y.toFixed(1);
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function addGoal() {
+                const goalText = goalInput.value.trim();
+                if (goalText) {
+                    const li = document.createElement('li');
+                    li.className = 'goal-item';
+                    li.innerHTML = `
+                        <span>${goalText}</span>
+                        <button class="delete-goal">Delete</button>
+                    `;
+                    goalList.appendChild(li);
+                    goalInput.value = '';
+
+                    li.querySelector('.delete-goal').addEventListener('click', () => {
+                        li.remove();
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

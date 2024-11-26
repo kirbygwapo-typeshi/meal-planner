@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephyr - Building Muscle</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #ff6b6b;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --text: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .calendar-link {
+            font-size: 1.5rem;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .calendar-link:hover {
+            color: var(--primary);
+        }
+
+        h1, h2 {
+            margin-bottom: 1rem;
+        }
+
+        .workout-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .workout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .workout-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .workout-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .workout-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .caution-section {
+            background: rgba(255, 165, 0, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .visualizer {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        #muscleVisualizer {
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .muscle-group {
+            cursor: pointer;
+            transition: fill 0.3s ease;
+        }
+
+        .muscle-group:hover {
+            fill: var(--accent);
+        }
+
+        #muscleInfo {
+            margin-top: 1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: var(--dark);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid var(--primary);
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: var(--light);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .workout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><i class="fas fa-wind"></i> Zephyr</div>
+                <a href="Entrep5.html" class="calendar-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="sr-only">View Calendar</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Building Muscle with Zephyr</h1>
+        <p>Discover effective workouts and tips to help you build muscle and strength.</p>
+
+        <section class="workout-section">
+            <h2>Recommended Workouts</h2>
+            <div class="workout-grid">
+                <div class="workout-card" onclick="showWorkoutDetails('Bench Press')">
+                    <i class="fas fa-dumbbell workout-icon"></i>
+                    <h3>Bench Press</h3>
+                    <p>Target: Chest, Triceps, Shoulders</p>
+                </div>
+                <div class="workout-card" onclick="showWorkoutDetails('Squats')">
+                    <i class="fas fa-running workout-icon"></i>
+                    <h3>Squats</h3>
+                    <p>Target: Quadriceps, Hamstrings, Glutes</p>
+                </div>
+                <div class="workout-card" onclick="showWorkoutDetails('Deadlifts')">
+                    <i class="fas fa-weight-hanging workout-icon"></i>
+                    <h3>Deadlifts</h3>
+                    <p>Target: Back, Hamstrings, Core</p>
+                </div>
+                <div class="workout-card" onclick="showWorkoutDetails('Pull-ups')">
+                    <i class="fas fa-arrow-up workout-icon"></i>
+                    <h3>Pull-ups</h3>
+                    <p>Target: Back, Biceps, Shoulders</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="caution-section">
+            <h2>Cautions and Tips</h2>
+            <ul>
+                <li>Always warm up before starting your workout</li>
+                <li>Use proper form to prevent injuries</li>
+                <li>Gradually increase weight and reps over time</li>
+                <li>Allow for adequate rest and recovery between workouts</li>
+                <li>Maintain a balanced diet rich in protein and nutrients</li>
+                <li>Stay hydrated before, during, and after workouts</li>
+                <li>Consult with a healthcare professional before starting any new exercise program</li>
+            </ul>
+        </section>
+
+        <section class="visualizer">
+            <h2>Muscle Group Visualizer</h2>
+            <p>Click on different muscle groups to learn more about exercises that target them.</p>
+            <svg id="muscleVisualizer" viewBox="0 0 200 300">
+                <path id="chest" class="muscle-group" d="M70,80 Q100,70 130,80 Q100,100 70,80" fill="#4a90e2" />
+                <path id="abs" class="muscle-group" d="M85,100 Q100,120 115,100 L115,150 Q100,170 85,150 Z" fill="#4a90e2" />
+                <path id="leftArm" class="muscle-group" d="M60,90 Q40,130 50,170 Q55,165 60,170 Q65,130 70,90" fill="#4a90e2" />
+                <path id="rightArm" class="muscle-group" d="M140,90 Q160,130 150,170 Q145,165 140,170 Q135,130 130,90" fill="#4a90e2" />
+                <path id="leftLeg" class="muscle-group" d="M70,180 Q60,220 65,260 Q80,270 95,260 Q90,220 85,180" fill="#4a90e2" />
+                <path id="rightLeg" class="muscle-group" d="M130,180 Q140,220 135,260 Q120,270 105,260 Q110,220 115,180" fill="#4a90e2" />
+                <path id="back" class="muscle-group" d="M70,80 Q100,60 130,80 L130,150 Q100,170 70,150 Z" fill="#4a90e2" opacity="0.5" />
+            </svg>
+            <div id="muscleInfo"></div>
+        </section>
+    </div>
+
+    <div id="workoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Muscle group data
+        const muscleGroups = {
+            chest: { name: 'Chest', exercises: ['Bench Press', 'Push-ups', 'Dumbbell Flyes'] },
+            abs: { name: 'Abs', exercises: ['Crunches', 'Planks', 'Leg Raises'] },
+            leftArm: { name: 'Arms', exercises: ['Bicep Curls', 'Tricep Extensions', 'Hammer Curls'] },
+            rightArm: { name: 'Arms', exercises: ['Bicep Curls', 'Tricep Extensions', 'Hammer Curls'] },
+            leftLeg: { name: 'Legs', exercises: ['Squats', 'Lunges', 'Leg Press'] },
+            rightLeg: { name: 'Legs', exercises: ['Squats', 'Lunges', 'Leg Press'] },
+            back: { name: 'Back', exercises: ['Pull-ups', 'Rows', 'Lat Pulldowns'] },
+        };
+
+        // Workout details
+        const workoutDetails = {
+            'Bench Press': {
+                benefits: 'Builds chest, shoulder, and tricep strength. Improves upper body pushing power.',
+                steps: [
+                    'Lie on a flat bench with your feet on the ground',
+                    'Grip the bar slightly wider than shoulder-width',
+                    'Unrack the bar and lower it to your chest',
+                    'Push the bar back up to the starting position'
+                ],
+                reps: '3-5 sets of 8-12 repetitions'
+            },
+            'Squats': {
+                benefits: 'Strengthens legs, core, and lower back. Improves overall body strength and stability.',
+                steps: [
+                    'Stand with feet shoulder-width apart',
+                    'Lower your body as if sitting back into a chair',
+                    'Keep your chest up and knees in line with your toes',
+                    'Push through your heels to return to the starting position'
+                ],
+                reps: '3-5 sets of 8-12 repetitions'
+            },
+            'Deadlifts': {
+                benefits: 'Builds overall body strength, especially in the posterior chain. Improves posture and grip strength.',
+                steps: [
+                    'Stand with feet hip-width apart, barbell over midfoot',
+                    'Bend at hips and knees to lower your hands to the bar',
+                    'Grip the bar and lift by extending hips and knees',
+                    'Lower the bar back to the ground with control'
+                ],
+                reps: '3-5 sets of 5-8 repetitions'
+            },
+            'Pull-ups': {
+                benefits: 'Strengthens back, biceps, and core. Improves upper body pulling strength and grip.',
+                steps: [
+                    'Hang from a pull-up bar with hands slightly wider than shoulder-width',
+                    'Pull your body up until your chin is over the bar',
+                    'Lower yourself back down with control',
+                    'Repeat for desired reps'
+                ],
+                reps: '3-5 sets to failure or 8-12 repetitions if assisted'
+            }
+        };
+
+        // Add click events to muscle groups
+        Object.keys(muscleGroups).forEach(id => {
+            const element = document.getElementById(id);
+            element.addEventListener('click', () => showMuscleInfo(muscleGroups[id]));
+        });
+
+        function showMuscleInfo(muscle) {
+            const infoDiv = document.getElementById('muscleInfo');
+            infoDiv.innerHTML = `
+                <h3>${muscle.name}</h3>
+                <p>Recommended exercises:</p>
+                <ul>
+                    ${muscle.exercises.map(ex => `<li>${ex}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        // Get the modal
+        var modal = document.getElementById("workoutModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function showWorkoutDetails(workout) {
+            const details = workoutDetails[workout];
+            const modalTitle = document.getElementById("modalTitle");
+            const modalContent = document.getElementById("modalContent");
+
+            modalTitle.textContent = workout;
+            modalContent.innerHTML = `
+                <h3>Benefits:</h3>
+                <p>${details.benefits}</p>
+                <h3>Steps:</h3>
+                <ol>
+                    ${details.steps.map(step => `<li>${step}</li>`).join('')}
+                </ol>
+                <h3>Recommended Reps:</h3>
+                <p>${details.reps}</p>
+            `;
+
+            modal.style.display = "block";
+        }
+    </script>
+</body>
+</html>
