@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephyr - Consult Coaches</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #ff6b6b;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --text: #333333;
+            --gray: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 20px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+        }
+
+        main {
+            margin-top: 40px;
+        }
+
+        .coaches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .coach-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .coach-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .coach-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .coach-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .coach-specialty {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .coach-bio {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .coach-rating {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .book-session {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .book-session:hover {
+            background-color: #3a7bc8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 1000px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .membership-upgrade {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .membership-tiers {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .tier {
+            background-color: var(--gray);
+            border-radius: 10px;
+            padding: 20px;
+            width: 30%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier:hover, .tier.selected {
+            background-color: var(--primary);
+            color: var(--light);
+            transform: scale(1.05);
+        }
+
+        .tier:hover::before, .tier.selected::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .tier h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .tier .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .tier ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .tier li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tier li i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+
+        .tier:hover li i, .tier.selected li i {
+            color: var(--light);
+        }
+
+        .upgrade-btn {
+            background-color: var(--accent);
+            color: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .upgrade-btn:hover {
+            background-color: #ff4f4f;
+        }
+
+        .tier-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .tier:hover .tier-icon, .tier.selected .tier-icon {
+            color: var(--light);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .membership-tiers {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tier {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-wind"></i>
+                    <h1>Zephyr Coaches</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Our Expert Coaches</h2>
+        <div class="coaches-grid" id="coachesGrid"></div>
+    </main>
+
+    <div id="membershipModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="membership-upgrade">
+                <h2>Oops... I guess the we'll stop the push-up from here</h2>
+                <p>To continue your fitness journey and book sessions with our expert coaches, please upgrade your membership.</p>
+                <div class="membership-tiers">
+                    <div class="tier" data-tier="foundation">
+                        <i class="tier-icon fas fa-seedling"></i>
+                        <h3>Foundation</h3>
+                        <div class="price">₱50</div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Access to basic workout plans</li>
+                            <li><i class="fas fa-check"></i> 1 coaching session per month</li>
+                            <li><i class="fas fa-check"></i> Community forum access</li>
+                        </ul>
+                        <button class="upgrade-btn">Select Plan</button>
+                    </div>
+                    <div class="tier" data-tier="momentum">
+                        <i class="tier-icon fas fa-running"></i>
+                        <h3>Momentum</h3>
+                        <div class="price">₱70</div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Access to advanced workout plans</li>
+                            <li><i class="fas fa-check"></i> 2 coaching sessions per month</li>
+                            <li><i class="fas fa-check"></i> Nutrition guidance</li>
+                            <li><i class="fas fa-check"></i> Priority community support</li>
+                        </ul>
+                        <button class="upgrade-btn">Select Plan</button>
+                    </div>
+                    <div class="tier" data-tier="apex">
+                        <i class="tier-icon fas fa-crown"></i>
+                        <h3>Apex</h3>
+                        <div class="price">₱100</div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Unlimited access to all workout plans</li>
+                            <li><i class="fas fa-check"></i> 4 coaching sessions per month</li>
+                            <li><i class="fas fa-check"></i> Personalized nutrition plan</li>
+                            <li><i class="fas fa-check"></i> 24/7 coach support</li>
+                            <li><i class="fas fa-check"></i> Exclusive wellness workshops</li>
+                        </ul>
+                        <button class="upgrade-btn">Select Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const coaches = [
+            {
+                name: "Dr. Alex Ramos",
+                specialty: "Health Coach",
+                bio: "Specializes in holistic health and wellness strategies.",
+                icon: "fa-user-md",
+                rating: 4.9
+            },
+            {
+                name: "Marl Caputolan",
+                specialty: "Exercise Coach",
+                bio: "Expert in strength training and functional fitness.",
+                icon: "fa-dumbbell",
+                rating: 4.8
+            },
+            {
+                name: "Kharl Jones Almacin",
+                specialty: "Nutrition Coach",
+                bio: "Helps create personalized meal plans for optimal health.",
+                icon: "fa-apple-alt",
+                rating: 4.7
+            },
+            {
+                name: "Dr. John Mark Bacalso",
+                specialty: "Mental Health Coach",
+                bio: "Provides strategies for stress management and mental wellness.",
+                icon: "fa-brain",
+                rating: 4.9
+            },
+            {
+                name: "James Kirby Cabahug",
+                specialty: "Recovery Coach",
+                bio: "Specializes in injury prevention and rehabilitation techniques.",
+                icon: "fa-heart",
+                rating: 4.6
+            }
+        ];
+
+        const coachesGrid = document.getElementById('coachesGrid');
+        const modal = document.getElementById('membershipModal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const tiers = document.querySelectorAll('.tier');
+        const upgradeBtns = document.querySelectorAll('.upgrade-btn');
+
+        function createCoachCard(coach) {
+            const card = document.createElement('div');
+            card.className = 'coach-card';
+            card.innerHTML = `
+                <i class="coach-icon fas ${coach.icon}" aria-hidden="true"></i>
+                <h3 class="coach-name">${coach.name}</h3>
+                <p class="coach-specialty">${coach.specialty}</p>
+                <p class="coach-bio">${coach.bio}</p>
+                <div class="coach-rating">
+                    ${'★'.repeat(Math.floor(coach.rating))}${coach.rating % 1 !== 0 ? '½' : ''}
+                    <span style="color: var(--text);">(${coach.rating})</span>
+                </div>
+                <button class="book-session">Book a Session</button>
+            `;
+            card.querySelector('.book-session').addEventListener('click', openModal);
+            return card;
+        }
+
+        function openModal() {
+            modal.style.display = 'block';
+        }
+
+        coaches.forEach(coach => {
+            coachesGrid.appendChild(createCoachCard(coach));
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        tiers.forEach(tier => {
+            tier.addEventListener('click', function() {
+                tiers.forEach(t => t.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        upgradeBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const selectedTier = this.closest('.tier').dataset.tier;
+                alert(`You've selected the ${selectedTier.charAt(0).toUpperCase() + selectedTier.slice(1)} plan. Thank you for upgrading!`);
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
+
