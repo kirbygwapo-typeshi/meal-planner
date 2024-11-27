@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephyr Nutrition Planner</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #ff6b6b;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --text: #333333;
+            --gray: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--text);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 144, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(80, 200, 120, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .nutrition-planner,
+        .meal-plan {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #3a7bc8;
+            transform: translateY(-2px);
+        }
+
+        .meal-plan {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(20px);
+        }
+
+        .meal-plan.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .meal {
+            background-color: var(--gray);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meal:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .meal h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .meal ul {
+            list-style-type: none;
+            padding-left: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .meal.expanded ul {
+            max-height: 500px;
+        }
+
+        .meal li {
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .meal li::before {
+            content: '\f0c8';
+            font-family: 'Font Awesome 5 Free';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        .nutritional-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .nutritional-info span {
+            background-color: var(--light);
+            padding: 5px 10px;
+            border-radius: 15px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nutritional-info span:hover {
+            background-color: var(--secondary);
+            color: var(--light);
+            transform: scale(1.05);
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .chart-container::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .meal-icon {
+            margin-right: 10px;
+        }
+
+        .expand-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .meal.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .design-element {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .design-element-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 4rem;
+            color: var(--primary);
+            transform: rotate(-15deg);
+        }
+
+        .design-element-2 {
+            bottom: 15%;
+            right: 5%;
+            font-size: 3rem;
+            color: var(--secondary);
+            transform: rotate(30deg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-apple-alt"></i>
+                    <h1>Zephyr Nutrition Planner</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <div class="nutrition-planner">
+            <h2><i class="fas fa-clipboard-list"></i> Personalized Meal Plan Generator</h2>
+            <form id="meal-plan-form">
+                <div class="form-group">
+                    <label for="age"><i class="fas fa-birthday-cake"></i> Age:</label>
+                    <input type="number" id="age" name="age" required min="1" max="120">
+                </div>
+                <div class="form-group">
+                    <label for="gender"><i class="fas fa-venus-mars"></i> Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="weight"><i class="fas fa-weight"></i> Weight (kg):</label>
+                    <input type="number" id="weight" name="weight" required min="20" max="300">
+                </div>
+                <div class="form-group">
+                    <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm):</label>
+                    <input type="number" id="height" name="height" required min="100" max="250">
+                </div>
+                <div class="form-group">
+                    <label for="activity-level"><i class="fas fa-running"></i> Activity Level:</label>
+                    <select id="activity-level" name="activity-level" required>
+                        <option value="">Select activity level</option>
+                        <option value="sedentary">Sedentary</option>
+                        <option value="light">Lightly Active</option>
+                        <option value="moderate">Moderately Active</option>
+                        <option value="very">Very Active</option>
+                        <option value="extra">Extra Active</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="diet-preference"><i class="fas fa-utensils"></i> Dietary Preference:</label>
+                    <select id="diet-preference" name="diet-preference" required>
+                        <option value="">Select preference</option>
+                        <option value="no-preference">No Preference</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="paleo">Paleo</option>
+                        <option value="keto">Keto</option>
+                    </select>
+                </div>
+                <button type="submit"><i class="fas fa-magic"></i> Generate Meal Plan</button>
+            </form>
+        </div>
+
+        <div id="meal-plan" class="meal-plan">
+            <h2><i class="fas fa-utensils"></i> Your Personalized Meal Plan</h2>
+            <div id="breakfast" class="meal slide-in">
+                <h3><i class="fas fa-sun meal-icon"></i> Breakfast</h3>
+                <i class="fas fa-chevron-down expand-icon"></i>
+                <ul id="breakfast-items"></ul>
+                <div class="nutritional-info">
+                    <span><i class="fas fa-fire"></i> Calories: <span id="breakfast-calories"></span></span>
+                    <span><i class="fas fa-drumstick-bite"></i> Protein: <span id="breakfast-protein"></span>g</span>
+                    <span><i class="fas fa-bread-slice"></i> Carbs: <span id="breakfast-carbs"></span>g</span>
+                    <span><i class="fas fa-cheese"></i> Fat: <span id="breakfast-fat"></span>g</span>
+                </div>
+            </div>
+            <div id="lunch" class="meal slide-in">
+                <h3><i class="fas fa-cloud-sun meal-icon"></i> Lunch</h3>
+                <i class="fas fa-chevron-down expand-icon"></i>
+                <ul id="lunch-items"></ul>
+                <div class="nutritional-info">
+                    <span><i class="fas fa-fire"></i> Calories: <span id="lunch-calories"></span></span>
+                    <span><i class="fas fa-drumstick-bite"></i> Protein: <span id="lunch-protein"></span>g</span>
+                    <span><i class="fas fa-bread-slice"></i> Carbs: <span id="lunch-carbs"></span>g</span>
+                    <span><i class="fas fa-cheese"></i> Fat: <span id="lunch-fat"></span>g</span>
+                </div>
+            </div>
+            <div id="dinner" class="meal slide-in">
+                <h3><i class="fas fa-moon meal-icon"></i> Dinner</h3>
+                <i class="fas fa-chevron-down expand-icon"></i>
+                <ul id="dinner-items"></ul>
+                <div class="nutritional-info">
+                    <span><i class="fas fa-fire"></i> Calories: <span id="dinner-calories"></span></span>
+                    <span><i class="fas fa-drumstick-bite"></i> Protein: <span id="dinner-protein"></span>g</span>
+                    <span><i class="fas fa-bread-slice"></i> Carbs: <span id="dinner-carbs"></span>g</span>
+                    <span><i class="fas fa-cheese"></i> Fat: <span id="dinner-fat"></span>g</span>
+                </div>
+            </div>
+            <div id="snacks" class="meal slide-in">
+                <h3><i class="fas fa-apple-alt meal-icon"></i> Snacks</h3>
+                <i class="fas fa-chevron-down expand-icon"></i>
+                <ul id="snacks-items"></ul>
+                <div class="nutritional-info">
+                    <span><i class="fas fa-fire"></i> Calories: <span id="snacks-calories"></span></span>
+                    <span><i class="fas fa-drumstick-bite"></i> Protein: <span id="snacks-protein"></span>g</span>
+                    <span><i class="fas fa-bread-slice"></i> Carbs: <span id="snacks-carbs"></span>g</span>
+                    <span><i class="fas fa-cheese"></i> Fat: <span id="snacks-fat"></span>g</span>
+                </div>
+            </div>
+            <div id="total-nutrition" class="meal slide-in">
+                <h3><i class="fas fa-calculator meal-icon"></i> Total Daily Nutrition</h3>
+                <div class="nutritional-info">
+                    <span><i class="fas fa-fire"></i> Calories: <span id="total-calories"></span></span>
+                    <span><i class="fas fa-drumstick-bite"></i> Protein: <span id="total-protein"></span>g</span>
+                    <span><i class="fas fa-bread-slice"></i> Carbs: <span id="total-carbs"></span>g</span>
+                    <span><i class="fas fa-cheese"></i> Fat: <span id="total-fat"></span>g</span>
+                </div>
+            </div>
+            <div class="chart-container slide-in">
+                <canvas id="nutrition-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="design-element design-element-1">
+        <i class="fas fa-leaf"></i>
+    </div>
+    <div class="design-element design-element-2">
+        <i class="fas fa-carrot"></i>
+    </div>
+
+    <script>
+        document.getElementById('meal-plan-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateMealPlan();
+        });
+
+        function generateMealPlan() {
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const activityLevel = document.getElementById('activity-level').value;
+            const dietPreference = document.getElementById('diet-preference').value;
+
+            // Calculate BMR (Basal Metabolic Rate) using the Harris-Benedict Equation
+            let bmr;
+            if (gender === 'male') {
+                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            } else {
+                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+            }
+
+            // Adjust BMR based on activity level
+            const activityMultipliers = {
+                sedentary: 1.2,
+                light: 1.375,
+                moderate: 1.55,
+                very: 1.725,
+                extra: 1.9
+            };
+            const tdee = bmr * activityMultipliers[activityLevel]; // Total Daily Energy Expenditure
+
+            // Generate meal plan (this is a simplified example)
+            const meals = {
+                breakfast: {
+                    items: [
+                        'Oatmeal with berries (1 cup)',
+                        'Greek yogurt (1/2 cup)',
+                        'Almonds (1 oz)',
+                        'Green tea (1 cup)'
+                    ],
+                    calories: Math.round(tdee * 0.3),
+                    protein: Math.round((tdee * 0.3) * 0.25 / 4),
+                    carbs: Math.round((tdee * 0.3) * 0.5 / 4),
+                    fat: Math.round((tdee * 0.3) * 0.25 / 9)
+                },
+                lunch: {
+                    items: [
+                        'Grilled chicken breast (4 oz)',
+                        'Brown rice (1/2 cup)',
+                        'Steamed mixed vegetables (1 cup)',
+                        'Olive oil (1 tsp)',
+                        'Mixed green salad (2 cups)'
+                    ],
+                    calories: Math.round(tdee * 0.35),
+                    protein: Math.round((tdee * 0.35) * 0.3 / 4),
+                    carbs: Math.round((tdee * 0.35) * 0.4 / 4),
+                    fat: Math.round((tdee * 0.35) * 0.3 / 9)
+                },
+                dinner: {
+                    items: [
+                        'Baked salmon (4 oz)',
+                        'Quinoa (1/2 cup)',
+                        'Roasted vegetables (1 cup)',
+                        'Avocado (1/4)',
+                        'Lemon herb dressing (1 tbsp)'
+                    ],
+                    calories: Math.round(tdee * 0.25),
+                    protein: Math.round((tdee * 0.25) * 0.35 / 4),
+                    carbs: Math.round((tdee * 0.25) * 0.4 / 4),
+                    fat: Math.round((tdee * 0.25) * 0.25 / 9)
+                },
+                snacks: {
+                    items: [
+                        'Apple with peanut butter (1 medium apple, 1 tbsp peanut butter)',
+                        'Protein shake (1 scoop whey protein)',
+                        'Carrot sticks (1 cup)',
+                        'Hummus (2 tbsp)'
+                    ],
+                    calories: Math.round(tdee * 0.1),
+                    protein: Math.round((tdee * 0.1) * 0.3 / 4),
+                    carbs: Math.round((tdee * 0.1) * 0.5 / 4),
+                    fat: Math.round((tdee * 0.1) * 0.2 / 9)
+                }
+            };
+
+            // Update the meal plan in the DOM with animations
+            const mealPlan = document.getElementById('meal-plan');
+            mealPlan.classList.add('show');
+
+            for (const [meal, data] of Object.entries(meals)) {
+                const mealElement = document.getElementById(meal);
+                mealElement.classList.add('slide-in');
+                
+                setTimeout(() => {
+                    const itemsList = document.getElementById(`${meal}-items`);
+                    itemsList.innerHTML = '';
+                    data.items.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        itemsList.appendChild(li);
+                    });
+
+                    document.getElementById(`${meal}-calories`).textContent = data.calories;
+                    document.getElementById(`${meal}-protein`).textContent = data.protein;
+                    document.getElementById(`${meal}-carbs`).textContent = data.carbs;
+                    document.getElementById(`${meal}-fat`).textContent = data.fat;
+                }, 300);
+            }
+
+            // Calculate and display total nutrition
+            const totalCalories = Object.values(meals).reduce((sum, meal) => sum + meal.calories, 0);
+            const totalProtein = Object.values(meals).reduce((sum, meal) => sum + meal.protein, 0);
+            const totalCarbs = Object.values(meals).reduce((sum, meal) => sum + meal.carbs, 0);
+            const totalFat = Object.values(meals).reduce((sum, meal) => sum + meal.fat, 0);
+
+            setTimeout(() => {
+                document.getElementById('total-calories').textContent = totalCalories;
+                document.getElementById('total-protein').textContent = totalProtein;
+                document.getElementById('total-carbs').textContent = totalCarbs;
+                document.getElementById('total-fat').textContent = totalFat;
+
+                // Create the nutrition chart
+                createNutritionChart(totalProtein, totalCarbs, totalFat);
+            }, 600);
+
+            // Add click event listeners to meal sections for expanding/collapsing
+            document.querySelectorAll('.meal').forEach(meal => {
+                meal.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                });
+            });
+        }
+
+        function createNutritionChart(protein, carbs, fat) {
+            const ctx = document.getElementById('nutrition-chart').getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (window.nutritionChart instanceof Chart) {
+                window.nutritionChart.destroy();
+            }
+
+            window.nutritionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Protein', 'Carbs', 'Fat'],
+                    datasets: [{
+                        data: [protein, carbs, fat],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Daily Macronutrient Distribution'
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
