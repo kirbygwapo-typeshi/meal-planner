@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephyr Community</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #ff6b6b;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --text: #333333;
+            --gray: #f0f0f0;
+            --hover: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .header-action {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .header-action:hover {
+            color: var(--primary);
+        }
+
+        .header-action i {
+            font-size: 1.2rem;
+        }
+
+        .community-content {
+            display: flex;
+            gap: 20px;
+            margin-top: 80px;
+        }
+
+        .posts {
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 300px;
+        }
+
+        .post {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .post-author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-author {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .post-time {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .post-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .post-action {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .post-action:hover {
+            color: var(--primary);
+        }
+
+        .post-action i {
+            font-size: 1.2rem;
+        }
+
+        .sidebar-section {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-section h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .create-post {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .create-post textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .create-post textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .create-post button {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .create-post button:hover {
+            background-color: #3a7bc8;
+            transform: translateY(-2px);
+        }
+
+        .comments {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .comment {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .comment:hover {
+            background-color: var(--hover);
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .comment-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .comment-content {
+            font-size: 0.9rem;
+        }
+
+        .add-comment {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-comment input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .add-comment input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .add-comment button {
+            padding: 8px 15px;
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .add-comment button:hover {
+            background-color: #3a7bc8;
+            transform: translateY(-2px);
+        }
+
+        .notification-panel {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 300px;
+            background-color: var(--light);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .notification-header {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 10px 15px;
+            font-weight: bold;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .notification-list {
+            padding: 10px 0;
+        }
+
+        .notification-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-item:hover {
+            background-color: var(--hover);
+        }
+
+        .notification-content {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .inspired {
+            color: var(--accent);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .new-post {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .badge {
+            background-color: var(--accent);
+            color: var(--light);
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        @media (max-width: 768px) {
+            .community-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .notification-panel {
+                width: 100%;
+                right: 0;
+                left: 0;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-wind"></i>
+                    <h1>Zephyr Community</h1>
+                </div>
+                <div class="header-actions">
+                    <a href="index.html" class="header-action">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <div class="header-action" id="notification-toggle">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                        <span class="badge" id="notification-badge">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="community-content">
+            <div class="posts">
+                <div class="create-post">
+                    <textarea id="post-content" placeholder="Share your fitness journey..."></textarea>
+                    <button id="create-post-btn">Post</button>
+                </div>
+                <div id="post-container">
+                    <!-- Posts will be dynamically added here -->
+                </div>
+            </div>
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Community Rules</h3>
+                    <ul>
+                        <li>Be respectful to others</li>
+                        <li>No spam or self-promotion</li>
+                        <li>Stay on topic (fitness and health)</li>
+                        <li>Provide constructive feedback</li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3>Top Contributors</h3>
+                    <ol>
+                        <li>FitnessFanatic</li>
+                        <li>HealthyHabits</li>
+                        <li>ZephyrZen</li>
+                        <li>WellnessWarrior</li>
+                        <li>StrengthSeeker</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="notification-panel" id="notification-panel">
+        <div class="notification-header">Notifications</div>
+        <div class="notification-list" id="notification-list">
+            <!-- Notifications will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        const postContainer = document.getElementById('post-container');
+        const postContent = document.getElementById('post-content');
+        const createPostBtn = document.getElementById('create-post-btn');
+        const notificationToggle = document.getElementById('notification-toggle');
+        const notificationPanel = document.getElementById('notification-panel');
+        const notificationList = document.getElementById('notification-list');
+        const notificationBadge = document.getElementById('notification-badge');
+
+        let posts = [
+            {
+                id: 1,
+                author: 'FitnessFanatic',
+                avatar: '/placeholder.svg?height=100&width=100',
+                content: 'Just completed my first 5K run with Zephyr! The app\'s guidance was incredibly helpful. Who else is training for a race? 🏃‍♂️💨 #ZephyrRun #5KAchievement',
+                time: '2 hours ago',
+                inspire: 15,
+                inspired: false,
+                comments: [
+                    { author: 'RunnerGirl', avatar: '/placeholder.svg?height=100&width=100', content: 'Congrats! I\'m training for a half marathon. Zephyr\'s training plans are amazing!' },
+                    { author: 'NewbieRunner', avatar: '/placeholder.svg?height=100&width=100', content: 'That\'s awesome! Any tips for someone just starting out?' }
+                ]
+            },
+            {
+                id: 2,
+                author: 'NutritionNinja',
+                avatar: '/placeholder.svg?height=100&width=100',
+                content: 'Meal prepping has been a game-changer for my fitness journey. Here\'s my go-to healthy lunch: grilled chicken, quinoa, and roasted veggies. What are your favorite meal prep recipes? 🥗🍗 #HealthyEating #MealPrepSunday',
+                time: '5 hours ago',
+                inspire: 28,
+                inspired: false,
+                comments: [
+                    { author: 'HealthyEats', avatar: '/placeholder.svg?height=100&width=100', content: 'I love making overnight oats for breakfast. So many flavor combinations!' },
+                    { author: 'MealPrepMaster', avatar: '/placeholder.svg?height=100&width=100', content: 'Great combo! I like to add some avocado for healthy fats. Have you tried using an air fryer for your veggies?' }
+                ]
+            },
+            {
+                id: 3,
+                author: 'YogaEnthusiast',
+                avatar: '/placeholder.svg?height=100&width=100',
+                content: 'Just finished a rejuvenating yoga session with Zephyr\'s new guided routines. The breathing exercises have really helped with my stress levels. Anyone else loving the mindfulness features? 🧘‍♀️✨ #ZephyrYoga #Mindfulness',
+                time: '1 day ago',
+                inspire: 42,
+                inspired: false,
+                comments: [
+                    { author: 'ZenMaster', avatar: '/placeholder.svg?height=100&width=100', content: 'The guided meditations are fantastic too! I\'ve been sleeping much better since I started using them.' },
+                    { author: 'FlexibilityNewbie', avatar: '/placeholder.svg?height=100&width=100', content: 'I\'m just starting out with yoga. Any beginner-friendly pose recommendations?' }
+                ]
+            },
+            {
+                id: 4,
+                author: 'WeightLossWarrior',
+                avatar: '/placeholder.svg?height=100&width=100',
+                content: 'Down 20 pounds thanks to Zephyr\'s nutrition tracking! It\'s been a journey, but so worth it. What\'s your biggest weight loss challenge? 💪🏋️‍♀️ #WeightLossJourney #ZephyrResults',
+                time: '3 days ago',
+                inspire: 55,
+                inspired: false,
+                comments: [
+                    { author: 'HealthyChoices', avatar: '/placeholder.svg?height=100&width=100', content: 'That\'s incredible! My biggest challenge is avoiding late-night snacking. Any tips?' },
+                    { author: 'FitnessFanatic', avatar: '/placeholder.svg?height=100&width=100', content: 'Congratulations! Consistency is key. Keep it up!' }
+                ]
+            },
+            {
+                id: 5,
+                author: 'StrengthSeeker',
+                avatar: '/placeholder.svg?height=100&width=100',
+                content: 'Hit a new personal best on deadlifts today! Zephyr\'s strength training program is really paying off. Anyone else seeing gains? 💪🏋️‍♂️ #StrengthTraining #PersonalBest',
+                time: '4 days ago',
+                inspire: 38,
+                inspired: false,
+                comments: [
+                    { author: 'IronPumper', avatar: '/placeholder.svg?height=100&width=100', content: 'That\'s awesome! What\'s your current routine like?' },
+                    { author: 'NewbieLifter', avatar: '/placeholder.svg?height=100&width=100', content: 'Inspiring! Any tips for someone just starting with strength training?' }
+                ]
+            }
+        ];
+
+        let notifications = [
+            { content: 'FitnessFanatic commented on your post', time: '1 hour ago' },
+            { content: 'Your latest post has 10 inspires!', time: '3 hours ago' },
+            { content: 'New challenge: 30-day plank challenge', time: '1 day ago' }
+        ];
+
+        function renderPosts() {
+            postContainer.innerHTML = '';
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post');
+                postElement.innerHTML = `
+                    <div class="post-header">
+                        <img src="${post.avatar}" alt="${post.author}" class="post-avatar">
+                        <div class="post-author-info">
+                            <span class="post-author">${post.author}</span>
+                            <span class="post-time">${post.time}</span>
+                        </div>
+                    </div>
+                    <div class="post-content">${post.content}</div>
+                    <div class="post-actions">
+                        <div class="post-action inspire-action ${post.inspired ? 'inspired' : ''}" data-post-id="${post.id}">
+                            <i class="fas fa-lightbulb"></i>
+                            <span class="inspire-count">${post.inspire}</span> Inspire
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-comment"></i>
+                            <span>${post.comments.length}</span> Comments
+                        </div>
+                    </div>
+                    <div class="comments">
+                        ${post.comments.map(comment => `
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <img src="${comment.avatar}" alt="${comment.author}" class="comment-avatar">
+                                    <span class="comment-author">${comment.author}</span>
+                                </div>
+                                <div class="comment-content">${comment.content}</div>
+                            </div>
+                        `).join('')}
+                        <div class="add-comment">
+                            <input type="text" placeholder="Add a comment..." class="comment-input" data-post-id="${post.id}">
+                            <button class="comment-btn" data-post-id="${post.id}">Send</button>
+                        </div>
+                    </div>
+                `;
+                postContainer.appendChild(postElement);
+            });
+
+            // Add event listeners for inspire actions
+            document.querySelectorAll('.inspire-action').forEach(action => {
+                action.addEventListener('click', (e) => {
+                    const postId = e.currentTarget.getAttribute('data-post-id');
+                    const post = posts.find(p => p.id === parseInt(postId));
+                    if (post) {
+                        if (post.inspired) {
+                            post.inspire--;
+                            post.inspired = false;
+                        } else {
+                            post.inspire++;
+                            post.inspired = true;
+                            addNotification(`You inspired a post by ${post.author}!`);
+                        }
+                        renderPosts();
+                    }
+                });
+            });
+
+            // Add event listeners for comment buttons
+            document.querySelectorAll('.comment-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const postId = e.target.getAttribute('data-post-id');
+                    const commentInput = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
+                    const content = commentInput.value.trim();
+                    if (content) {
+                        const post = posts.find(p => p.id === parseInt(postId));
+                        if (post) {
+                            post.comments.push({ author: 'You', avatar: '/placeholder.svg?height=100&width=100', content: content });
+                            addNotification(`You commented on ${post.author}'s post!`);
+                            renderPosts();
+                        }
+                    }
+                });
+            });
+        }
+
+        createPostBtn.addEventListener('click', () => {
+            const content = postContent.value.trim();
+            if (content) {
+                const newPost = {
+                    id: posts.length + 1,
+                    author: 'You',
+                    avatar: '/placeholder.svg?height=100&width=100',
+                    content: content,
+                    time: 'Just now',
+                    inspire: 0,
+                    inspired: false,
+                    comments: []
+                };
+                posts.unshift(newPost);
+                postContent.value = '';
+                renderPosts();
+                addNotification('Your new post has been created!');
+            }
+        });
+
+        function addNotification(content) {
+            const newNotification = {
+                content: content,
+                time: 'Just now'
+            };
+            notifications.unshift(newNotification);
+            renderNotifications();
+            updateNotificationBadge();
+        }
+
+        function renderNotifications() {
+            notificationList.innerHTML = '';
+            notifications.forEach(notification => {
+                const notificationElement = document.createElement('div');
+                notificationElement.classList.add('notification-item');
+                notificationElement.innerHTML = `
+                    <div class="notification-content">${notification.content}</div>
+                    <div class="notification-time">${notification.time}</div>
+                `;
+                notificationList.appendChild(notificationElement);
+            });
+        }
+
+        function updateNotificationBadge() {
+            notificationBadge.textContent = notifications.length;
+            notificationBadge.style.display = notifications.length > 0 ? 'inline' : 'none';
+        }
+
+        notificationToggle.addEventListener('click', () => {
+            notificationPanel.style.display = notificationPanel.style.display === 'block' ? 'none' : 'block';
+            if (notificationPanel.style.display === 'block') {
+                notifications = [];
+                updateNotificationBadge();
+            }
+        });
+
+        // Close notification panel when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!notificationPanel.contains(e.target) && !notificationToggle.contains(e.target)) {
+                notificationPanel.style.display = 'none';
+            }
+        });
+
+        // Initial render
+        renderPosts();
+        renderNotifications();
+        updateNotificationBadge();
+
+        // Simulating real-time notifications
+        setInterval(() => {
+            const randomPost = posts[Math.floor(Math.random() * posts.length)];
+            addNotification(`${randomPost.author} just added a new post!`);
+        }, 30000); // Every 30 seconds
+    </script>
+</body>
+</html>
