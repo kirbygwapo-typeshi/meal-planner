@@ -10,17 +10,19 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --primary: #4a90e2;
-            --secondary: #50c878;
-            --accent: #ff6b6b;
-            --background: #ffffff;
-            --text: #333333;
-            --light-text: #ffffff;
-            --card-bg: #f0f4f8;
-            --underweight: #ffd700;
-            --normal: #50c878;
-            --overweight: #ffa500;
-            --obese: #ff6b6b;
+            --primary: #1a237e;
+            --primary-light: #534bae;
+            --primary-dark: #000051;
+            --secondary: #00bcd4;
+            --accent: #ff4081;
+            --background: #e8eaf6;
+            --text: #ffffff;
+            --text-dark: #121212;
+            --card-bg: #ffffff;
+            --underweight: #ffd54f;
+            --normal: #66bb6a;
+            --overweight: #ff7043;
+            --obese: #e53935;
         }
 
         * {
@@ -32,18 +34,22 @@
 
         body {
             background-color: var(--background);
-            color: var(--text);
+            color: var(--text-dark);
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .header {
             background: var(--primary);
-            color: var(--light-text);
+            color: var(--text);
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
@@ -64,7 +70,7 @@
         }
 
         .nav-links a {
-            color: var(--light-text);
+            color: var(--text);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -73,7 +79,8 @@
         }
 
         .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
         }
 
         .container {
@@ -104,7 +111,7 @@
         }
 
         .form-section, .result-section {
-            background: var(--background);
+            background: var(--card-bg);
             padding: 2rem;
             border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -123,25 +130,25 @@
         label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--text);
+            color: var(--text-dark);
             font-weight: 500;
         }
 
         input {
             width: 100%;
             padding: 0.75rem;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--primary-light);
             border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background-color: var(--background);
-            color: var(--text);
+            background-color: var(--card-bg);
+            color: var(--text-dark);
         }
 
         input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
         }
 
         button {
@@ -149,20 +156,20 @@
             width: 100%;
             padding: 1rem;
             background: var(--primary);
-            color: var(--light-text);
+            color: var(--text);
             border: none;
             border-radius: 10px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(74, 144, 226, 0.1);
+            box-shadow: 0 4px 6px rgba(26, 35, 126, 0.1);
         }
 
         button:hover {
-            background: #3a7bc8;
+            background: var(--primary-light);
             transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(74, 144, 226, 0.2);
+            box-shadow: 0 7px 14px rgba(26, 35, 126, 0.2);
         }
 
         .result {
@@ -197,7 +204,7 @@
             justify-content: space-between;
             margin-top: 0.5rem;
             font-size: 0.8rem;
-            color: var(--text);
+            color: var(--text-dark);
         }
 
         .result h3 {
@@ -206,7 +213,7 @@
         }
 
         .suggestion {
-            background: var(--card-bg);
+            background: var(--background);
             border-left: 4px solid var(--primary);
             padding: 1rem;
             margin-top: 1rem;
@@ -217,14 +224,14 @@
         .chart-container {
             margin-top: 2rem;
             padding: 1rem;
-            background: var(--background);
+            background: var(--card-bg);
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .tips {
             margin-top: 2rem;
-            background: var(--background);
+            background: var(--card-bg);
             padding: 1.5rem;
             border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -255,7 +262,7 @@
 
         .goal-tracker {
             margin-top: 2rem;
-            background: var(--background);
+            background: var(--card-bg);
             padding: 1.5rem;
             border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -285,14 +292,20 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.5rem;
-            background: var(--card-bg);
+            background: var(--background);
             margin-bottom: 0.5rem;
             border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .goal-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .goal-item button {
             background: var(--accent);
-            color: var(--light-text);
+            color: var(--text);
             border: none;
             padding: 0.25rem 0.5rem;
             border-radius: 5px;
@@ -328,6 +341,26 @@
             pointer-events: none;
             z-index: 9999;
         }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        body.dark-mode {
+            --background: #121212;
+            --card-bg: #1e1e1e;
+            --text: #ffffff;
+            --text-dark: #e0e0e0;
+        }
     </style>
 </head>
 <body>
@@ -337,9 +370,10 @@
             Zephyr
         </div>
         <nav class="nav-links">
-            <a href="#"><i class="fas fa-home"></i> Home</a>
+            <a href="Entrep6.html"><i class="fas fa-home"></i> Home</a>
             <a href="#" id="calendarLink"><i class="fas fa-calendar-alt"></i> Calendar</a>
-            <a href="#"><i class="fas fa-user"></i> Profile</a>
+            <a href="Entrep12.html"><i class="fas fa-user"></i> Profile</a>
+            <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
         </nav>
     </header>
 
@@ -420,6 +454,7 @@
             const addGoalBtn = document.getElementById('addGoal');
             const goalList = document.getElementById('goalList');
             const calendarLink = document.getElementById('calendarLink');
+            const themeToggle = document.getElementById('themeToggle');
             let bmiChart;
             let confettiInstance;
 
@@ -445,6 +480,8 @@
                 e.preventDefault();
                 window.location.href = 'Entrep5.html';
             });
+
+            themeToggle.addEventListener('click', toggleTheme);
 
             function calculateBMI(weight, height) {
                 return (weight / (height * height)).toFixed(1);
@@ -587,8 +624,23 @@
                     goalInput.value = '';
 
                     li.querySelector('.delete-goal').addEventListener('click', () => {
-                        li.remove();
+                        li.classList.add('fade-out');
+                        setTimeout(() => {
+                            li.remove();
+                        }, 300);
                     });
+
+                    li.classList.add('fade-in');
+                }
+            }
+
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+                const icon = themeToggle.querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
                 }
             }
         });
