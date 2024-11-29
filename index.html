@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zephyr - AI-Powered Fitness Transformation</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -31,170 +31,197 @@
             overflow-x: hidden;
         }
 
-        .container {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
+        .header {
+            background-color: var(--primary);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 2rem;
-        }
-
-        .content-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 1400px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            z-index: 1;
-        }
-
-        .login-section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .visual-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 0 1rem;
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
             font-size: 2rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
+            font-weight: 700;
             color: var(--light);
         }
 
-        p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
+        .nav-links {
+            display: flex;
+            gap: 1rem;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
+        .nav-links a {
             color: var(--light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        button {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            border: none;
-            border-radius: 8px;
-            color: var(--light);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
 
-        button:hover {
-            background: #3a7bc8;
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
-        .about-btn {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            color: var(--light);
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: var(--light);
+            bottom: -2px;
+            left: 0;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
-        .about-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .nav-links a:hover::after {
+            transform: scaleX(1);
         }
 
-        .modal {
-            display: none;
+        .info-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--dark);
+            border: 1px solid var(--primary);
+            border-radius: 4px;
+            padding: 1rem;
+            width: 250px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+        }
+
+        .nav-links a:hover .info-popup {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .login-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        .modal.active {
-            display: flex;
+        .login-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .login-container {
+            background-color: var(--dark);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-overlay.active .login-container {
+            transform: translateY(0);
             opacity: 1;
         }
 
-        .modal-content {
-            position: relative;
-            width: 90%;
-            max-width: 600px;
-            margin: auto;
-            background: linear-gradient(135deg, #2a3f54, #1a1a2e);
-            padding: 2rem;
-            border-radius: 16px;
-            transform: translateY(-50px);
-            transition: transform 0.3s ease;
+        .login-container h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+            font-size: 2rem;
         }
 
-        .modal.active .modal-content {
+        .login-container input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--primary);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            border-radius: 4px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .login-container input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(80, 200, 120, 0.3);
+        }
+
+        .login-container button[type="submit"] {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .login-container button[type="submit"]:hover {
+            background-color: #3a7bc8;
+            transform: translateY(-2px);
+        }
+
+        .login-container button[type="submit"]:active {
             transform: translateY(0);
         }
 
-        .close-btn {
+        .close-login {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 15px;
+            right: 15px;
             background: none;
             border: none;
             color: var(--light);
             font-size: 1.5rem;
             cursor: pointer;
-            padding: 0.5rem;
-            width: auto;
+            transition: color 0.3s ease;
+        }
+
+        .close-login:hover {
+            color: var(--accent);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--light);
+            cursor: pointer;
         }
 
         .loading-screen {
@@ -203,48 +230,33 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--dark);
+            background-color: var(--dark);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z-index: 3000;
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .loading-screen.active {
             opacity: 1;
-            pointer-events: all;
-        }
-
-        .loader {
-            width: 100px;
-            height: 100px;
-            border: 5px solid var(--primary);
-            border-top: 5px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 2rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            visibility: visible;
         }
 
         .loading-icons {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            align-items: center;
+            font-size: 3rem;
             margin-bottom: 2rem;
         }
 
-        .loading-icons i {
-            font-size: 3rem;
-            color: var(--primary);
-            animation: pulse 2s infinite;
+        .loading-icon {
+            animation: pulse 1.5s infinite alternate;
+            margin: 0 1rem;
         }
 
         .loading-tip {
@@ -252,285 +264,529 @@
             max-width: 80%;
             font-size: 1.2rem;
             color: var(--light);
+            opacity: 0.8;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
         }
 
-        .particles {
+        .main-content {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            height: calc(100vh - 6rem);
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            opacity: 0.8;
+        }
+
+        .hero-image {
+            flex: 1;
             position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 50%;
+            background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, var(--dark) 0%, rgba(26, 26, 46, 0.5) 100%);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #45b168;
+            transform: translateY(-3px);
+        }
+
+        .cta-overview {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            background-color: var(--dark);
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            padding: 2rem;
+            z-index: 2000;
+            display: none;
+        }
+
+        .cta-overview.active {
+            display: block;
+        }
+
+        .cta-overview h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .cta-overview ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .cta-overview li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .cta-overview li::before {
+            content: '\2022';
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .close-overview {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--light);
+            opacity: 0.8;
+        }
+
+        .overlay {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1999;
+            display: none;
         }
 
-        .particle {
-            position: absolute;
+        .overlay.active {
             display: block;
-            pointer-events: none;
-            width: 5px;
-            height: 5px;
-            background-color: var(--primary);
-            box-shadow: 0 0 10px 2px rgba(74, 144, 226, 0.2);
-            border-radius: 50%;
-            animation: float 15s infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-                border-radius: 0;
-            }
-            100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
-                border-radius: 50%;
-            }
         }
 
         @media (max-width: 768px) {
-            .content-wrapper {
-                grid-template-columns: 1fr;
+            .hero {
+                flex-direction: column;
+                height: auto;
             }
 
-            .visual-section {
+            .hero-image {
+                position: relative;
+                width: 100%;
+                height: 300px;
+            }
+
+            .nav-links {
                 display: none;
             }
 
-            .login-section {
-                padding: 2rem;
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--light);
+                font-size: 1.5rem;
+                cursor: pointer;
             }
-        }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
+            .login-container {
+                padding: 2rem;
+                max-width: 90%;
+            }
 
-        .about-btn.animate {
-            animation: bounce 0.5s;
+            .cta-overview {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
-    <button class="about-btn">About Zephyr</button>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">Zephyr</div>
+            <div class="nav-links">
+                <a href="#workouts">
+                    Workouts
+                    <div class="info-popup">
+                        <h4>AI-Powered Workouts</h4>
+                        <p>Get personalized workout plans tailored to your fitness level, goals, and available equipment.</p>
+                    </div>
+                </a>
+                <a href="#nutrition">
+                    Nutrition
+                    <div class="info-popup">
+                        <h4>Smart Meal Planning</h4>
+                        <p>Receive customized meal plans and recipes based on your dietary preferences and nutritional needs.</p>
+                    </div>
+                </a>
+                <a href="#progress">
+                    Progress Tracking
+                    <div class="info-popup">
+                        <h4>Advanced Analytics</h4>
+                        <p>Monitor your fitness journey with detailed progress reports, body measurements, and performance metrics.</p>
+                    </div>
+                </a>
+                <a href="#community">
+                    Community
+                    <div class="info-popup">
+                        <h4>Connect & Motivate</h4>
+                        <p>Join challenges, share achievements, and get support from like-minded fitness enthusiasts.</p>
+                    </div>
+                </a>
+                <a href="#" id="loginLink">Login</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
 
-    <div class="container">
-        <div class="content-wrapper">
-            <div class="login-section">
-                <div class="logo"><i class="fas fa-wind"></i> Zephyr</div>
-                <h1>Transform Your Lifestyle with AI-Powered Fitness</h1>
-                <p>Track your progress, get personalized workouts, and achieve your health goals with cutting-edge AI technology.</p>
-                
-                <form id="loginForm">
-                    <div class="form-group">
-                        <input type="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Password" required>
-                    </div>
-                    <button type="submit">Get Started</button>
-                </form>
-            </div>
-            
-            <div class="visual-section">
-                <img src="https://via.placeholder.com/500x500.png?text=Zephyr+AI+Fitness" alt="Zephyr AI Fitness" style="width: 100%; height: auto; border-radius: 20px;">
-            </div>
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-container">
+            <button class="close-login" id="closeLogin" aria-label="Close login form">&times;</button>
+            <h2>Let's get to work!</h2>
+            <form id="loginForm">
+                <div style="position: relative; margin-bottom: 1rem;">
+                    <input type="email" id="email" placeholder="Email" required aria-label="Email">
+                </div>
+                <div style="position: relative; margin-bottom: 1rem;">
+                    <input type="password" id="password" placeholder="Password" required aria-label="Password">
+                    <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                <a href="#" style="color: var(--primary); text-decoration: none; transition: color 0.3s ease;">Forgot password?</a>
+            </p>
         </div>
     </div>
 
-    <div class="modal">
-        <div class="modal-content">
-            <button class="close-btn">&times;</button>
-            <h2 style="margin-bottom: 1.5rem; color: var(--light);">About Zephyr</h2>
-            <div style="line-height: 1.6; color: var(--light);">
-                <p>Welcome to Zephyr - your comprehensive health and fitness companion powered by advanced AI technology.</p>
-                <p>Our platform offers:</p>
-                <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem">
-                    <li>Precise tracking of your weight and height measurements</li>
-                    <li>Personalized workout plans tailored to your fitness level</li>
-                    <li>Detailed meal preparations and nutrition guidance</li>
-                    <li>Interactive features for tracking your progress</li>
-                    <li>AI-powered recommendations for optimal results</li>
-                </ul>
-                <p>Join us on your journey to a healthier lifestyle with personalized guidance every step of the way.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="loading-screen">
-        <div class="loader"></div>
+    <div class="loading-screen" id="loadingScreen">
         <div class="loading-icons">
-            <i class="fas fa-dumbbell"></i>
-            <i class="fas fa-heartbeat"></i>
-            <i class="fas fa-apple-alt"></i>
+            <i class="fas fa-dumbbell loading-icon" aria-hidden="true"></i>
+            <i class="fas fa-apple-alt loading-icon" aria-hidden="true"></i>
+            <i class="fas fa-heartbeat loading-icon" aria-hidden="true"></i>
         </div>
-        <p class="loading-tip">Did you know? Regular exercise can improve your mood and reduce symptoms of anxiety and depression.</p>
+        <p class="loading-tip" id="loadingTip" aria-live="polite"></p>
     </div>
+
+    <main class="main-content">
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Transform Your Body with AI-Powered Fitness</h1>
+                <p>Get personalized workout plans, nutrition advice, and progress tracking tailored to your unique goals and preferences.</p>
+                <button class="cta-button" id="ctaButton">Start Your Fitness Journey</button>
+            </div>
+            <div class="hero-image" role="img" aria-label="Person exercising in a gym"></div>
+        </section>
+
+        <div class="overlay" id="overlay"></div>
+        <div class="cta-overview" id="ctaOverview">
+            <button class="close-overview" id="closeOverview" aria-label="Close overview">&times;</button>
+            <h3>Zephyr: Your AI Fitness Companion</h3>
+            <p>Zephyr is an innovative AI-powered fitness platform that offers:</p>
+            <ul>
+                <li>Personalized workout plans based on your goals and fitness level</li>
+                <li>Custom nutrition guidance tailored to your dietary needs</li>
+                <li>Real-time progress tracking with advanced analytics</li>
+                <li>AI-powered form correction for optimal results</li>
+                <li>Community support and motivating challenges</li>
+            </ul>
+            <p>Join Zephyr today and revolutionize your fitness journey!</p>
+        </div>
+
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-dumbbell" aria-hidden="true"></i>
+                <h3>Smart Workouts</h3>
+                <p>AI-generated workout plans that adapt to your progress and preferences.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-apple-alt" aria-hidden="true"></i>
+                <h3>Nutrition Guidance</h3>
+                <p>Personalized meal plans and nutritional advice to fuel your fitness journey.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                <h3>Progress Tracking</h3>
+                <p>Advanced analytics to monitor your improvements and keep you motivated.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <h3>Community Support</h3>
+                <p>Connect with like-minded individuals and share your fitness achievements.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-brain" aria-hidden="true"></i>
+                <h3>AI Coach</h3>
+                <p>Get real-time feedback and form corrections from our AI-powered virtual coach.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                <h3>Mobile Integration</h3>
+                <p>Sync with wearable devices and access your fitness data anytime, anywhere.</p>
+            </div>
+        </section>
+    </main>
 
     <script>
-        // Particle background
-        function createParticle() {
-            const particle = document.createElement('span');
-            particle.classList.add('particle');
-            const size = Math.random() * 5 + 5;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = Math.random() * 100 + 'vw';
-            particle.style.top = Math.random() * 100 + 'vh';
-            particle.style.animationDuration = Math.random() * 10 + 5 + 's';
-            document.getElementById('particles').appendChild(particle);
-            setTimeout(() => {
-                particle.remove();
-            }, 15000);
+        // Login overlay functionality
+        const loginLink = document.getElementById('loginLink');
+        const loginOverlay = document.getElementById('loginOverlay');
+        const closeLogin = document.getElementById('closeLogin');
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('passwordToggle');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const loadingTip = document.getElementById('loadingTip');
+        const ctaButton = document.getElementById('ctaButton');
+        const ctaOverview = document.getElementById('ctaOverview');
+        const closeOverview = document.getElementById('closeOverview');
+        const overlay = document.getElementById('overlay');
+
+        loginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginOverlay.classList.add('active');
+        });
+
+        closeLogin.addEventListener('click', () => {
+            loginOverlay.classList.remove('active');
+        });
+
+        loginOverlay.addEventListener('click', (e) => {
+            if (e.target === loginOverlay) {
+                loginOverlay.classList.remove('active');
+            }
+        });
+
+        passwordToggle.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            passwordToggle.querySelector('i').classList.toggle('fa-eye');
+            passwordToggle.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+
+        ctaButton.addEventListener('click', () => {
+            ctaOverview.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeOverview.addEventListener('click', () => {
+            ctaOverview.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            ctaOverview.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        const fitnessTips = [
+            "Stay hydrated! Aim for at least 8 glasses of water a day.",
+            "Consistency is key. Small, regular workouts are better than infrequent intense sessions.",
+            "Don't forget to warm up before exercising to prevent injuries.",
+            "Mix cardio and strength training for optimal fitness results.",
+            "Good nutrition is just as important as exercise. Eat a balanced diet.",
+            "Get enough sleep. It's crucial for muscle recovery and overall health.",
+            "Set realistic goals and celebrate your progress, no matter how small.",
+            "Try new activities to keep your workouts fun and engaging.",
+            "Remember to stretch after your workouts to improve flexibility.",
+            "Listen to your body. Rest when you need to, and push yourself when you can."
+        ];
+
+        function getRandomTip() {
+            return fitnessTips[Math.floor(Math.random() * fitnessTips.length)];
         }
 
-        setInterval(createParticle, 200);
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = passwordInput.value;
+            
+            // Here you would typically send the login data to your server
+            console.log('Login attempt:', { email, password });
+            
+            // Simulate a successful login
+            loginOverlay.classList.remove('active');
+            loadingScreen.classList.add('active');
+            
+            // Display random fitness tips during loading
+            let tipIndex = 0;
+            const tipInterval = setInterval(() => {
+                loadingTip.textContent = getRandomTip();
+                tipIndex++;
+                if (tipIndex >= fitnessTips.length) {
+                    clearInterval(tipInterval);
+                }
+            }, 3000);
+            
+            // Simulate loading time (15 seconds)
+            setTimeout(() => {
+                loadingScreen.classList.remove('active');
+                clearInterval(tipInterval);
+                // Redirect to Entrep6.html after successful login
+                window.location.href = 'Entrep6.html';
+            }, 6000);
+        });
 
-        // Ripple effect
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const x = e.clientX - e.target.offsetLeft;
-                const y = e.clientY - e.target.offsetTop;
-                
-                const ripple = document.createElement('span');
-                ripple.style.left = `${x}px`;
-                ripple.style.top = `${y}px`;
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => ripple.remove(), 600);
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
-        // Modal handling
-        const modal = document.querySelector('.modal');
-        const aboutBtn = document.querySelector('.about-btn');
-        const closeBtn = document.querySelector('.close-btn');
+        // Add animation to feature cards on scroll
+        const featureCards = document.querySelectorAll('.feature-card');
 
-        aboutBtn.addEventListener('click', () => {
-            modal.classList.add('active');
-            aboutBtn.classList.add('animate');
-            setTimeout(() => aboutBtn.classList.remove('animate'), 500);
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        featureCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
         });
 
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
+        // Add hover effect to feature cards
+        featureCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = 'none';
+            });
         });
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
+        // Add parallax effect to hero image
+        const heroImage = document.querySelector('.hero-image');
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            heroImage.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
         });
-
-        // Form handling and loading screen
-        const loadingScreen = document.querySelector('.loading-screen');
-        const loadingTip = document.querySelector('.loading-tip');
-
-        const fitnessTips = [
-            "Stay hydrated! Drink water before, during, and after your workout.",
-            "Get enough sleep. It's crucial for muscle recovery and overall health.",
-            "Mix up your workouts to prevent boredom and plateau.",
-            "Proper form is more important than lifting heavy weights.",
-            "Remember to warm up before and cool down after your workout.",
-            "Consistency is key. Small, regular workouts are better than occasional intense ones.",
-            "Listen to your body. Rest when you need to.",
-            "Nutrition is just as important as exercise for achieving your fitness goals.",
-            "Set realistic goals and celebrate small victories along the way.",
-            "Find a workout buddy to keep you motivated and accountable."
-        ];
-
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const button = e.target.querySelector('button');
-            const originalText = button.textContent;
-            
-            // Add loading state
-            button.disabled = true;
-            button.textContent = 'Loading...';
-            loadingScreen.classList.add('active');
-            
-            // Display random fitness tips
-            let tipIndex = 0;
-            const tipInterval = setInterval(() => {
-                loadingTip.textContent = fitnessTips[tipIndex];
-                tipIndex = (tipIndex + 1) % fitnessTips.length;
-            }, 5000);
-            
-            try {
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 5000));
-                clearInterval(tipInterval);
-                loadingScreen.classList.remove('active');
-                // Redirect to Entrep 6 HTML
-                window.location.href = 'Entrep6.html';
-            } catch (error) {
-                clearInterval(tipInterval);
-                alert('Login failed. Please try again.');
-                loadingScreen.classList.remove('active');
-            } finally {
-                button.disabled = false;
-                button.textContent = originalText;
-            }
-        });
-
-        // Improve login page with password visibility toggle
-        const passwordInput = document.querySelector('input[type="password"]');
-        const togglePassword = document.createElement('i');
-        togglePassword.className = 'fas fa-eye password-toggle';
-        togglePassword.style.position = 'absolute';
-        togglePassword.style.right = '10px';
-        togglePassword.style.top = '50%';
-        togglePassword.style.transform = 'translateY(-50%)';
-        togglePassword.style.cursor = 'pointer';
-        togglePassword.style.color = 'var(--light)';
-        passwordInput.parentElement.style.position = 'relative';
-        passwordInput.parentElement.appendChild(togglePassword);
-
-        togglePassword.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            togglePassword.className = `fas fa-eye${type === 'password' ? '' : '-slash'} password-toggle`;
-        });
-
-        // Add password strength indicator
-        const strengthIndicator = document.createElement('div');
-        strengthIndicator.className = 'password-strength';
-        strengthIndicator.style.height = '4px';
-        strengthIndicator.style.marginTop = '5px';
-        strengthIndicator.style.transition = 'all 0.3s ease';
-        passwordInput.parentElement.appendChild(strengthIndicator);
-
-        passwordInput.addEventListener('input', () => {
-            const strength = calculatePasswordStrength(passwordInput.value);
-            updateStrengthIndicator(strength);
-        });
-
-        function calculatePasswordStrength(password) {
-            let strength = 0;
-            if (password.length >= 8) strength++;
-            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
-            if (password.match(/\d/)) strength++;
-            if (password.match(/[^a-zA-Z\d]/)) strength++;
-            return strength;
-        }
-
-        function updateStrengthIndicator(strength) {
-            const colors = ['#ff4d4d', '#ffa64d', '#ffff4d', '#4dff4d'];
-            const width = ['25%', '50%', '75%', '100%'];
-            strengthIndicator.style.width = width[strength - 1] || '0%';
-            strengthIndicator.style.backgroundColor = colors[strength - 1] || 'transparent';
-        }
     </script>
 </body>
 </html>
-
