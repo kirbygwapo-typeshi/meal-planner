@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zephyr - Interactive Fitness Calendar</title>
+    <title>Zephyr - Interactive Fitness Tracker</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --primary: #4a90e2;
-            --secondary: #50c878;
-            --accent: #ff6b6b;
-            --dark: #1a1a2e;
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --dark: #0f172a;
             --light: #ffffff;
-            --text: #333333;
+            --text: #e2e8f0;
+            --gradient-start: #1e3a8a;
+            --gradient-end: #3b82f6;
         }
 
         * {
@@ -26,7 +28,7 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--dark), #2a3f54);
+            background: var(--dark);
             color: var(--light);
             display: flex;
             justify-content: center;
@@ -36,8 +38,8 @@
 
         .container {
             width: 100%;
-            max-width: 1000px;
-            background: rgba(255, 255, 255, 0.1);
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 2rem;
@@ -47,9 +49,21 @@
         h1 {
             text-align: center;
             margin-bottom: 2rem;
-            color: var(--primary);
+            color: var(--light);
             font-size: 2.5rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .calendar-container, .stats-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
         }
 
         .calendar-controls {
@@ -60,7 +74,7 @@
         }
 
         .calendar-controls select {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--primary);
             color: var(--light);
             border: none;
             padding: 0.5rem;
@@ -71,7 +85,7 @@
         }
 
         .calendar-controls select:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: var(--secondary);
         }
 
         .calendar-controls select option {
@@ -83,7 +97,6 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 10px;
-            margin-bottom: 2rem;
         }
 
         .calendar-header {
@@ -111,7 +124,7 @@
             font-weight: bold;
             text-align: center;
             padding: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--primary);
             border-radius: 5px;
         }
 
@@ -130,16 +143,12 @@
 
         .calendar-day:hover {
             transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--secondary);
         }
 
         .calendar-day.active {
-            background: var(--primary);
+            background: var(--secondary);
             color: var(--light);
-        }
-
-        .calendar-day.has-note {
-            border: 2px solid var(--accent);
         }
 
         .calendar-day.has-note::after {
@@ -150,6 +159,46 @@
             top: 5px;
             right: 5px;
             font-size: 0.7rem;
+            color: var(--accent);
+        }
+
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stats-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: var(--primary);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            font-size: 2rem;
+            font-weight: bold;
             color: var(--accent);
         }
 
@@ -171,10 +220,10 @@
         }
 
         .modal-content {
-            background: linear-gradient(135deg, var(--dark), #2a3f54);
+            background: var(--dark);
             margin: 15% auto;
             padding: 20px;
-            border: 1px solid var(--primary);
+            border: 1px solid var(--secondary);
             border-radius: 10px;
             width: 80%;
             max-width: 500px;
@@ -206,7 +255,7 @@
             margin-top: 10px;
             margin-bottom: 10px;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--primary);
+            border: 1px solid var(--secondary);
             border-radius: 5px;
             color: var(--light);
             padding: 10px;
@@ -215,7 +264,7 @@
         }
 
         #addNote, #closeModal {
-            background-color: var(--primary);
+            background-color: var(--secondary);
             color: var(--light);
             border: none;
             padding: 10px 20px;
@@ -227,7 +276,7 @@
         }
 
         #addNote:hover, #closeModal:hover {
-            background-color: #3a7bc8;
+            background-color: var(--primary);
             transform: translateY(-2px);
         }
 
@@ -277,12 +326,8 @@
             transform: scale(1.1);
         }
 
-        .edit-note {
-            background: var(--secondary);
-        }
-
         .edit-note:hover {
-            background-color: #45b065;
+            background-color: var(--primary);
         }
 
         .delete-note {
@@ -290,12 +335,16 @@
         }
 
         .delete-note:hover {
-            background-color: #ff4f4f;
+            background-color: #d97706;
         }
 
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
             }
 
             .calendar {
@@ -314,18 +363,46 @@
 </head>
 <body>
     <div class="container">
-        <h1>Zephyr Fitness Tracker</h1>
-        <div class="calendar-controls">
-            <select id="monthSelect"></select>
-            <select id="yearSelect"></select>
-        </div>
-        <div class="calendar">
-            <div class="calendar-header">
-                <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
-                <h2 id="currentMonth"></h2>
-                <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+        <h1>Zephyr Workout Calendar</h1>
+        <div class="dashboard">
+            <div class="calendar-container">
+                <div class="calendar-controls">
+                    <select id="monthSelect"></select>
+                    <select id="yearSelect"></select>
+                </div>
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <h2 id="currentMonth"></h2>
+                        <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <!-- Calendar days will be inserted here by JavaScript -->
+                </div>
             </div>
-            <!-- Calendar days will be inserted here by JavaScript -->
+            <div class="stats-container">
+                <div class="stats-header">
+                    <h2>Fitness Stats</h2>
+                    <button id="refreshStats"><i class="fas fa-sync-alt"></i></button>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Workouts This Month</h3>
+                        <p id="workoutsThisMonth">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Calories Burned</h3>
+                        <p id="totalCaloriesBurned">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Streak (Days)</h3>
+                        <p id="currentStreak">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Goal Progress</h3>
+                        <p id="goalProgress">0%</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -352,6 +429,7 @@
         const monthSelect = document.getElementById('monthSelect');
         const yearSelect = document.getElementById('yearSelect');
         const notesList = document.getElementById('notesList');
+        const refreshStatsBtn = document.getElementById('refreshStats');
 
         let currentDate = new Date();
         let selectedDate = null;
@@ -369,8 +447,9 @@
             monthSelect.appendChild(option);
         });
 
-        // Populate year select (2000 to 2070)
-        for (let year = 2000; year <= 2070; year++) {
+        // Populate year select (current year - 5 to current year + 5)
+        const currentYear = new Date().getFullYear();
+        for (let year = currentYear - 5; year <= currentYear + 5; year++) {
             const option = document.createElement('option');
             option.value = year;
             option.textContent = year;
@@ -411,6 +490,10 @@
                 const dateString = `${year}-${month + 1}-${day}`;
                 if (localStorage.getItem(dateString)) {
                     dayElement.classList.add('has-note');
+                }
+
+                if (year === new Date().getFullYear() && month === new Date().getMonth() && day === new Date().getDate()) {
+                    dayElement.classList.add('active');
                 }
 
                 dayElement.addEventListener('click', () => openModal(new Date(year, month, day)));
@@ -465,6 +548,7 @@
                 displayNotes(notes);
                 noteText.value = '';
                 updateCalendarDay(selectedDate);
+                updateStats();
             }
         }
 
@@ -482,6 +566,7 @@
             localStorage.setItem(dateString, JSON.stringify(notes));
             displayNotes(notes);
             updateCalendarDay(selectedDate);
+            updateStats();
         }
 
         function updateCalendarDay(date) {
@@ -499,6 +584,50 @@
 
         function closeModal() {
             modal.style.display = 'none';
+        }
+
+        function updateStats() {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+
+            let workoutsThisMonth = 0;
+            let totalCaloriesBurned = 0;
+            let currentStreak = 0;
+            let lastWorkoutDate = null;
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith(`${currentYear}-${currentMonth + 1}`)) {
+                    const notes = JSON.parse(localStorage.getItem(key));
+                    if (notes.length > 0) {
+                        workoutsThisMonth++;
+                        totalCaloriesBurned += Math.floor(Math.random() * 300) + 100; // Simulated calorie burn
+                    }
+                }
+
+                const dateParts = key.split('-').map(Number);
+                const noteDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                
+                if (noteDate <= currentDate) {
+                    const notes = JSON.parse(localStorage.getItem(key));
+                    if (notes.length > 0) {
+                        if (!lastWorkoutDate || (noteDate - lastWorkoutDate) / (1000 * 60 * 60 * 24) === 1) {
+                            currentStreak++;
+                        } else if ((noteDate - lastWorkoutDate) / (1000 * 60 * 60 * 24) > 1) {
+                            currentStreak = 1;
+                        }
+                        lastWorkoutDate = noteDate;
+                    }
+                }
+            }
+
+            document.getElementById('workoutsThisMonth').textContent = workoutsThisMonth;
+            document.getElementById('totalCaloriesBurned').textContent = totalCaloriesBurned;
+            document.getElementById('currentStreak').textContent = currentStreak;
+
+            const goalProgress = Math.min(100, Math.floor((workoutsThisMonth / 20) * 100)); // Assuming a goal of 20 workouts per month
+            document.getElementById('goalProgress').textContent = `${goalProgress}%`;
         }
 
         document.getElementById('prevMonth').addEventListener('click', () => {
@@ -524,6 +653,7 @@
         addNoteBtn.addEventListener('click', addNote);
         closeModalBtn.addEventListener('click', closeModal);
         closeModalX.addEventListener('click', closeModal);
+        refreshStatsBtn.addEventListener('click', updateStats);
 
         window.onclick = function(event) {
             if (event.target == modal) {
@@ -532,6 +662,7 @@
         }
 
         renderCalendar();
+        updateStats();
     </script>
 </body>
 </html>
