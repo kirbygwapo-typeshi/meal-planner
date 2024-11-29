@@ -472,6 +472,21 @@
 
             .nav-links {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 0;
             }
 
             .mobile-menu-btn {
@@ -491,6 +506,18 @@
             .cta-overview {
                 width: 90%;
             }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -499,6 +526,7 @@
         <nav class="nav-container">
             <div class="logo">Zephyr</div>
             <div class="nav-links">
+                <a href="#" id="loginLink">Login</a>
                 <a href="#workouts">
                     Workouts
                     <div class="info-popup">
@@ -527,7 +555,6 @@
                         <p>Join challenges, share achievements, and get support from like-minded fitness enthusiasts.</p>
                     </div>
                 </a>
-                <a href="#" id="loginLink">Login</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -639,6 +666,8 @@
         const ctaOverview = document.getElementById('ctaOverview');
         const closeOverview = document.getElementById('closeOverview');
         const overlay = document.getElementById('overlay');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
 
         loginLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -716,7 +745,7 @@
                 }
             }, 3000);
             
-            // Simulate loading time (15 seconds)
+            // Simulate loading time (6 seconds)
             setTimeout(() => {
                 loadingScreen.classList.remove('active');
                 clearInterval(tipInterval);
@@ -726,11 +755,8 @@
         });
 
         // Mobile menu functionality
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-
         mobileMenuBtn.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.classList.toggle('active');
         });
 
         // Smooth scroll for navigation links
