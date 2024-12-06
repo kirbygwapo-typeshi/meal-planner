@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephyr - Membership Tiers</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #ff6b6b;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --text: #333333;
+            --gray: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--text);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 144, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(80, 200, 120, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+        }
+
+        main {
+            margin-top: 40px;
+        }
+
+        .membership-tiers {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .tier {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tier:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .tier-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .tier h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .tier .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .tier ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .tier li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tier li i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+
+        .select-btn {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .select-btn:hover {
+            background-color: #3a7bc8;
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--accent);
+        }
+
+        .payment-options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .payment-option {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-option:hover {
+            transform: scale(1.1);
+        }
+
+        .payment-option img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .payment-details {
+            margin-top: 20px;
+        }
+
+        .payment-details input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .payment-details input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #3a7bc8;
+            transform: scale(1.05);
+        }
+
+        .success-message {
+            background-color: var(--secondary);
+            color: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .success-message h3 {
+            margin-bottom: 10px;
+        }
+
+        .home-btn {
+            background-color: var(--light);
+            color: var(--secondary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .home-btn:hover {
+            background-color: var(--gray);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .membership-tiers {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tier {
+                width: 100%;
+            }
+
+            .payment-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .payment-option {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-wind"></i>
+                    <h1>Zephyr Membership</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Choose Your Membership Tier</h2>
+        <div class="membership-tiers">
+            <div class="tier" data-tier="foundation">
+                <i class="tier-icon fas fa-seedling"></i>
+                <h2>Foundation</h2>
+                <div class="price">₱50</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Access to basic workout plans</li>
+                    <li><i class="fas fa-check"></i> 1 coaching session per month</li>
+                    <li><i class="fas fa-check"></i> Community forum access</li>
+                </ul>
+                <button class="select-btn">Select Plan</button>
+            </div>
+            <div class="tier" data-tier="momentum">
+                <i class="tier-icon fas fa-running"></i>
+                <h2>Momentum</h2>
+                <div class="price">₱70</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Access to advanced workout plans</li>
+                    <li><i class="fas fa-check"></i> 2 coaching sessions per month</li>
+                    <li><i class="fas fa-check"></i> Nutrition guidance</li>
+                    <li><i class="fas fa-check"></i> Priority community support</li>
+                </ul>
+                <button class="select-btn">Select Plan</button>
+            </div>
+            <div class="tier" data-tier="apex">
+                <i class="tier-icon fas fa-crown"></i>
+                <h2>Apex</h2>
+                <div class="price">₱100</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Unlimited access to all workout plans</li>
+                    <li><i class="fas fa-check"></i> 4 coaching sessions per month</li>
+                    <li><i class="fas fa-check"></i> Personalized nutrition plan</li>
+                    <li><i class="fas fa-check"></i> 24/7 coach support</li>
+                    <li><i class="fas fa-check"></i> Exclusive wellness workshops</li>
+                </ul>
+                <button class="select-btn">Select Plan</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Select Payment Method</h2>
+            <div class="payment-options">
+                <div class="payment-option" data-method="bpi">
+                    <img src="BPI.png" alt="BPI Logo">
+                    <p>BPI</p>
+                </div>
+                <div class="payment-option" data-method="pnb">
+                    <img src="PNB.png" alt="PNB Logo">
+                    <p>PNB</p>
+                </div>
+                <div class="payment-option" data-method="gcash">
+                    <img src="GCash.png" alt="GCash Logo">
+                    <p>GCash</p>
+                </div>
+            </div>
+            <div class="payment-details" id="paymentDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('paymentModal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const selectBtns = document.querySelectorAll('.select-btn');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const paymentDetails = document.getElementById('paymentDetails');
+        let selectedTier = '';
+
+        selectBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                selectedTier = this.closest('.tier').dataset.tier;
+                modal.style.display = 'block';
+            });
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+            paymentDetails.innerHTML = '';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                paymentDetails.innerHTML = '';
+            }
+        }
+
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const method = this.dataset.method;
+                let detailsHTML = `
+                    <h3>${method.toUpperCase()} Payment Details</h3>
+                    <input type="text" placeholder="Full Name" required>
+                `;
+
+                if (method === 'bpi' || method === 'pnb') {
+                    detailsHTML += `
+                        <input type="text" placeholder="Bank Name" required>
+                        <input type="text" placeholder="Branch Name (Optional)">
+                        <input type="text" placeholder="Account Name" required>
+                        <input type="text" placeholder="Account Number" required>
+                        <input type="text" placeholder="SWIFT/BIC Code (For international payments)">
+                        <input type="text" placeholder="Contact Information (Optional)">
+                        <input type="text" placeholder="Additional Details (e.g., Reference/Remarks)">
+                    `;
+                } else if (method === 'gcash') {
+                    detailsHTML += `
+                        <input type="text" placeholder="GCash Number" required>
+                    `;
+                }
+
+                detailsHTML += `
+                    <button class="submit-btn">Submit Payment</button>
+                `;
+
+                paymentDetails.innerHTML = detailsHTML;
+
+                const submitBtn = paymentDetails.querySelector('.submit-btn');
+                submitBtn.addEventListener('click', function() {
+                    const successMessage = `
+                        <div class="success-message">
+                            <h3>Payment Successful!</h3>
+                            <p>Thank you for your payment. Your ${selectedTier} plan is now active.</p>
+                            <button class="home-btn" onclick="window.location.href='Entrep6.html'">Go to Homepage</button>
+                        </div>
+                    `;
+                    paymentDetails.innerHTML = successMessage;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
